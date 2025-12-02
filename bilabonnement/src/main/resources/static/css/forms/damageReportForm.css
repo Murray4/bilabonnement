@@ -86,13 +86,12 @@ body {
     margin-bottom: 20px;
 }
 
-/* SKADER – RÆKKER */
+/* SKADER – RÆKKER (nu med minus-kolonne) */
 .damage-row {
     display: grid;
-    grid-template-columns: 40px 1fr 70px;
+    grid-template-columns: 40px 1fr 70px 32px;
     gap: 15px;
     margin-bottom: 15px;
-
 }
 
 /* FELTER */
@@ -123,7 +122,7 @@ body {
     margin-right: 5px;
 }
 
-/* ADD BUTTON */
+/* PLUS-KNAP */
 .add-btn {
     background: #5B7680;
     color: white;
@@ -134,6 +133,20 @@ body {
     border-radius: 50%;
     cursor: pointer;
     margin: 10px 0 20px 0;
+}
+
+/* MINUS-KNAP */
+.remove-btn {
+    background: #C24E4E;
+    color: white;
+    border: none;
+    font-size: 18px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    align-self: center;
+    margin-top: 18px; /* så den flugter vertikalt */
 }
 
 /* ACTION BUTTONS */
@@ -151,7 +164,6 @@ body {
     color: white;
     border: none;
     cursor: pointer;
-
 }
 
 .back { background: #74A57F; }

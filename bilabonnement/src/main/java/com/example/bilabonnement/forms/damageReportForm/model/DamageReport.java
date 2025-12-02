@@ -1,15 +1,21 @@
 package com.example.bilabonnement.forms.damageReportForm.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class DamageReport {
 
-    private int damageReportId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long damageReport_ID;   // ← SKIFTET TIL Long
+
+    private Long leasingContract_ID;
 
     private LocalDate reportDate;
-    private LocalDate returnDate;    // ✔ bruges til at beregne late return
+    private LocalDate returnDate;
 
     private int totalKm;
 
@@ -18,18 +24,19 @@ public class DamageReport {
 
     private boolean hasPayed;
 
-    private int leasingContractId;
-
+    @OneToMany(mappedBy = "damageReport", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DamageItem> damageItems = new ArrayList<>();
+
 
     // --- getters & setters ---
 
-    public int getDamageReportId() {
-        return damageReportId;
+    // ✔ kun getter, ingen setter — perfekt til auto increment
+    public Long getDamageReport_ID() {
+        return damageReport_ID;
     }
 
-    public void setDamageReportId(int damageReportId) {
-        this.damageReportId = damageReportId;
+    public Long getLeasingContract_ID() {
+        return leasingContract_ID;
     }
 
     public LocalDate getReportDate() {
@@ -78,14 +85,6 @@ public class DamageReport {
 
     public void setHasPayed(boolean hasPayed) {
         this.hasPayed = hasPayed;
-    }
-
-    public int getLeasingContractId() {
-        return leasingContractId;
-    }
-
-    public void setLeasingContractId(int leasingContractId) {
-        this.leasingContractId = leasingContractId;
     }
 
     public List<DamageItem> getDamageItems() {

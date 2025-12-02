@@ -1,23 +1,27 @@
 package com.example.bilabonnement.forms.damageReportForm.model;
 
-import java.math.BigDecimal;
+import jakarta.persistence.*;
 
+@Entity
 public class DamageItem {
 
-    private int damageItemId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long damageItem_ID;
+
     private String description;
-    private BigDecimal damageItemPrice;
-    private int damageReportId;  // FK → DamageReport
+    private double damageItemPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "damageReport_ID")
+    private DamageReport damageReport;
 
 
-    // --- Getters and Setters ---
+// Getters & Setters
 
-    public int getDamageItemId() {
-        return damageItemId;
-    }
 
-    public void setDamageItemId(int damageItemId) {
-        this.damageItemId = damageItemId;
+    public Long getDamageItem_ID() {
+        return damageItem_ID;
     }
 
     public String getDescription() {
@@ -28,19 +32,20 @@ public class DamageItem {
         this.description = description;
     }
 
-    public BigDecimal getDamageItemPrice() {
+    public double getDamageItemPrice() {
         return damageItemPrice;
     }
 
-    public void setDamageItemPrice(BigDecimal damageItemPrice) {
+    public void setDamageItemPrice(double damageItemPrice) {
         this.damageItemPrice = damageItemPrice;
     }
 
-    public int getDamageReportId() {
-        return damageReportId;
+    public DamageReport getDamageReport() {
+        return damageReport;
     }
 
-    public void setDamageReportId(int damageReportId) {
-        this.damageReportId = damageReportId;
+    // ✔ nødvendig for at sætte parent relation
+    public void setDamageReport(DamageReport damageReport) {
+        this.damageReport = damageReport;
     }
 }

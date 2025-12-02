@@ -68,6 +68,11 @@
                                min="0" step="0.01">
                     </div>
 
+                    <!-- MINUS / SLET KNAP -->
+                    <button type="button"
+                            class="remove-btn"
+                            onclick="removeDamageRow(this)">−</button>
+
                 </div>
             </div>
 
@@ -95,7 +100,7 @@
 
     </form>
 
-    <!-- ACTION BUTTONS -->
+    <!-- ACTION BUTTONS UDENFOR FORM -->
     <div class="action-buttons">
         <button class="back">Tilbage</button>
         <button class="save">Gem</button>
@@ -106,9 +111,18 @@
 
 <script>
     function addDamageItem() {
-        const list = document.querySelector(".damage-list");
-        const index = list.children.length;
+        const list = document.querySelector(".damage-section-box .damage-list");
+        const index = list ? list.parentElement.querySelectorAll(".damage-row").length : 0;
         const number = index + 1;
+
+        // Hvis der ikke findes en .damage-list endnu (fx helt tom liste)
+        let container = list;
+        if (!container) {
+            const box = document.querySelector(".damage-section-box");
+            container = document.createElement("div");
+            container.className = "damage-list";
+            box.insertBefore(container, box.querySelector(".add-btn"));
+        }
 
         const template = `
             <div class="damage-row">
@@ -128,10 +142,30 @@
                     <input type="number" name="damageItems[${index}].damageItemPrice" min="0" step="0.01">
                 </div>
 
+                <button type="button"
+                        class="remove-btn"
+                        onclick="removeDamageRow(this)">−</button>
+
             </div>
         `;
 
-        list.insertAdjacentHTML("beforeend", template);
+        container.insertAdjacentHTML("beforeend", template);
+    }
+
+    function removeDamageRow(button) {
+        const row = button.closest(".damage-row");
+        if (!row) return;
+
+        row.remove();
+
+        // OPTIONAL: reindex IDs visuelt efter sletning
+        const rows = document.querySelectorAll(".damage-row");
+        rows.forEach((r, i) => {
+            const idInput = r.querySelector(".damage-field.id input");
+            if (idInput) {
+                idInput.value = i + 1;
+            }
+        });
     }
 </script>
 
