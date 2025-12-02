@@ -5,30 +5,27 @@ import java.util.Date;
 public class LeaseContract {
 
     public enum SubscriptionType {
-        LIMITED,
-        UNLIMITED
+        Limited,
+        Unlimited
     }
 
-    private int leasingContract_ID;          // PK
-    private String leasingContractTerms;     // TEXT
-    private Date leaseContractDate;          // DATE
-    private Date startDate;                  // DATE
-    private Date endDate;                    // DATE
-    private double rentalPrice;              // DECIMAL(10,2)
-    private SubscriptionType subscription;   // ENUM
-    private Date approvedDate;               // DATETIME
-    private Date depositPayedDate;           // DATETIME
-    private Date fullAmountPayedDate;        // DATETIME
-    private int renter_ID;                   // FK
-    private int vehicle_ID;                  // FK
+    private int leasingContractId;        // leasing_contract_id
+    private String leasingContractTerms;  // leasing_contract_terms
+    private Date leaseContractDate;       // lease_contract_date
+    private Date startDate;               // start_date
+    private Date endDate;                 // end_date
+    private double rentalPrice;           // rental_price
+    private SubscriptionType subscription; // subscription ENUM
+    private Date approvedDate;            // approved_date
+    private Date depositPayedDate;        // deposit_payed_date
+    private Date fullAmountPayedDate;     // full_amount_payed_date
+    private int renterId;                 // renter_id
+    private int vehicleId;                // vehicle_id
 
+    // TOM KONSTRUKTØR (kræves af BeanPropertyRowMapper)
+    public LeaseContract() {}
 
-    // Tom konstruktør
-    public LeaseContract() {
-    }
-
-    // Konstruktør uden ID'er????? Måske skal de med, fordi man kan få den til at blive udfyldt automatisk?
-    //Skal man evt. bruge de to FK'er
+    // VALGFRI konstruktør
     public LeaseContract(String leasingContractTerms,
                          Date leaseContractDate,
                          Date startDate,
@@ -37,7 +34,9 @@ public class LeaseContract {
                          SubscriptionType subscription,
                          Date approvedDate,
                          Date depositPayedDate,
-                         Date fullAmountPayedDate) {
+                         Date fullAmountPayedDate,
+                         int renterId,
+                         int vehicleId) {
 
         this.leasingContractTerms = leasingContractTerms;
         this.leaseContractDate = leaseContractDate;
@@ -48,16 +47,18 @@ public class LeaseContract {
         this.approvedDate = approvedDate;
         this.depositPayedDate = depositPayedDate;
         this.fullAmountPayedDate = fullAmountPayedDate;
+        this.renterId = renterId;
+        this.vehicleId = vehicleId;
     }
 
+    // GETTERS & SETTERS
 
-
-    public int getLeasingContract_ID() {
-        return leasingContract_ID;
+    public int getLeasingContractId() {
+        return leasingContractId;
     }
 
-    public void setLeasingContract_ID(int leasingContract_ID) {
-        this.leasingContract_ID = leasingContract_ID;
+    public void setLeasingContractId(int leasingContractId) {
+        this.leasingContractId = leasingContractId;
     }
 
     public String getLeasingContractTerms() {
@@ -132,19 +133,19 @@ public class LeaseContract {
         this.fullAmountPayedDate = fullAmountPayedDate;
     }
 
-    public int getRenter_ID() {
-        return renter_ID;
+    public int getRenterId() {
+        return renterId;
     }
 
-    public void setRenter_ID(int renter_ID) {
-        this.renter_ID = renter_ID;
+    public void setRenterId(int renterId) {
+        this.renterId = renterId;
     }
 
-    public int getVehicle_ID() {
-        return vehicle_ID;
+    public int getVehicleId() {
+        return vehicleId;
     }
 
-    public void setVehicle_ID(int vehicle_ID) {
-        this.vehicle_ID = vehicle_ID;
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
     }
 }

@@ -13,64 +13,50 @@ import java.util.List;
 public class LeaseContractRepo {
 
     @Autowired
-    JdbcTemplate template; //Ved hvordan man forbinder til DB, bruger username/password, og MySQL driver.
+    JdbcTemplate template; // Ved hvordan man forbinder til DB, bruger username/password, og MySQL driver.
 
-    //Hent alle LeaseContracts/bookinger, både approved og ikke approved
-    public List<LeaseContract> fetchAllLeaseContracts(){
-        String sql = "SELECT * FROM leasecontract";
-        RowMapper<LeaseContract> rowMapper = new BeanPropertyRowMapper<>(LeaseContract.class); //Kan ændre fra first_name til firstName
-        return template.query(sql, rowMapper); //Laver en List<LeaseContract med objekter
-    }
-
-    //Henter alle LeaseContracts hvor ApprovedDate er NULL = Altså hent alle bookinger, der ikke er blevet approved
-    public List<LeaseContract> fetchAllBookings() {
-        String sql = "SELECT * FROM leasecontract WHERE approvedDate IS NULL";
+    // Hent alle lease_contracts (både approved og ikke approved)
+    public List<LeaseContract> fetchAllLeaseContracts() {
+        String sql = "SELECT * FROM lease_contracts";
         RowMapper<LeaseContract> rowMapper = new BeanPropertyRowMapper<>(LeaseContract.class);
         return template.query(sql, rowMapper);
     }
 
-    //Find kontrakt ud fra kontrakt ID
-    public LeaseContract findContractByLeasingContractID(int leasingContract_ID) {
-        String sql = "SELECT * FROM leasecontract WHERE leasingContract_ID = ?";
+    // Hent alle lease_contracts hvor approved_date IS NULL = bookinger der ikke er approved endnu
+    public List<LeaseContract> fetchAllBookings() {
+        String sql = "SELECT * FROM lease_contracts WHERE approved_date IS NULL";
         RowMapper<LeaseContract> rowMapper = new BeanPropertyRowMapper<>(LeaseContract.class);
-        LeaseContract lc = template.queryForObject(sql, rowMapper, leasingContract_ID);
-        return lc;
+        return template.query(sql, rowMapper);
     }
 
-    //Find kontrakt ud fra renter ID
-    public LeaseContract findContractByRenterID(int renter_ID) {
-        String sql = "SELECT * FROM leasecontract WHERE renter_ID = ?";
+    // Find kontrakt ud fra leasing_contract_id
+    public LeaseContract findContractByLeasingContractID(int leasingContractId) {
+        String sql = "SELECT * FROM lease_contracts WHERE leasing_contract_id = ?";
         RowMapper<LeaseContract> rowMapper = new BeanPropertyRowMapper<>(LeaseContract.class);
-        LeaseContract lc = template.queryForObject(sql, rowMapper, renter_ID);
-        return lc;
+        return template.queryForObject(sql, rowMapper, leasingContractId);
     }
 
-    //Find kontrakt ud fra vehicle ID
-    public LeaseContract findContractByVehicleID(int vehicle_ID) {
-        String sql = "SELECT * FROM leasecontract WHERE vehicle_ID = ?";
+    // Find kontrakt ud fra renter_id
+    public LeaseContract findContractByRenterID(int renterId) {
+        String sql = "SELECT * FROM lease_contracts WHERE renter_id = ?";
         RowMapper<LeaseContract> rowMapper = new BeanPropertyRowMapper<>(LeaseContract.class);
-        LeaseContract lc = template.queryForObject(sql, rowMapper, vehicle_ID);
-        return lc;
+        return template.queryForObject(sql, rowMapper, renterId);
     }
 
-    //Godkend kontrakt ud fra kontraktID = ændre approved date fra NULL til datos
-    public boolean approveLeaseContractByID(int leasingContract_ID) {
-        String sql = "UPDATE leasecontract " +
-                "SET approvedDate = NOW() " +
-                "WHERE leasingContract_ID = ? " +
-                "AND approvedDate IS NULL";
-
-        return template.update(sql, leasingContract_ID) > 0;
+    // Find kontrakt ud fra vehicle_id
+    public LeaseContract findContractByVehicleID(int vehicleId) {
+        String sql = "SELECT * FROM lease_contracts WHERE vehicle_id = ?";
+        RowMapper<LeaseContract> rowMapper = new BeanPropertyRowMapper<>(LeaseContract.class);
+        return template.queryForObject(sql, rowMapper, vehicleId);
     }
 
+    // Godkend kontrakt ud fra leasing_contract_id = sæt approved_date fra NULL til NOW()
+    public boolean approveLeaseContractByID(int leasingContractId) {
+        String sql = "UPDATE lease_contracts " +
+                "SET approved_date = NOW() " +
+                "WHERE leasing_contract_id = ? " +
+                "AND approved_date IS NULL";
 
-
-
-
-
-
-
-
-
-
+        return template.update(sql, leasingContractId) > 0;
+    }
 }
