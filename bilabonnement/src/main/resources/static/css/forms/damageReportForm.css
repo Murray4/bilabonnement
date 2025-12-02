@@ -1,0 +1,159 @@
+body {
+    background: #F4F6F8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 40px 0;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* HEADER MATCHER FORM BREDDE */
+.top-header {
+    width: 750px;
+    background: #74A57F;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 18px;
+    margin-bottom: -10px;
+}
+
+/* FORMULAR */
+.damage-form {
+    width: 700px;
+    background: #F7FAFC;
+    padding: 35px;
+    border: 2px solid #A7C4CE;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+/* GENERELLE FELTER */
+.input-wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: 180px auto;
+    align-items: center;
+    background: #F1F5F7;
+    border: 2px solid #8AB6C0;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    padding-left: 14px;
+    height: 40px;
+}
+
+.input-wrapper span {
+    font-size: 14px;
+}
+
+.input-wrapper::after {
+    content: "";
+    position: absolute;
+    left: 165px;
+    top: 8px;
+    bottom: 8px;
+    width: 1.5px;
+    background: #7ea8b3;
+}
+
+.input-wrapper input {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* SKADER-SEKTION */
+.damage-section-box {
+    border: 2px solid #8AB6C0;
+    border-radius: 14px;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    background: #F1F5F7;
+}
+
+/* ONE TITLE ONLY */
+.damage-title {
+    font-size: 20px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+/* SKADER – RÆKKER */
+.damage-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 70px;
+    gap: 15px;
+    margin-bottom: 15px;
+
+}
+
+/* FELTER */
+.damage-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.damage-field label {
+    font-size: 15px;
+    margin-bottom: 4px;
+    margin-left: 5px;
+    height: 30px;
+}
+
+.damage-field input {
+    background: #F1F5F7;
+    border: 2px solid #8AB6C0;
+    border-radius: 10px;
+    height: 26px;
+    padding: 6px 10px;
+    outline: none;
+}
+
+/* PRIS – SMALL & GAP */
+.damage-field.price input {
+    width: 45px;
+    margin-right: 5px;
+}
+
+/* ADD BUTTON */
+.add-btn {
+    background: #5B7680;
+    color: white;
+    border: none;
+    font-size: 20px;
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 10px 0 20px 0;
+}
+
+/* ACTION BUTTONS */
+.action-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+    gap: 40px;
+}
+
+.action-buttons button {
+    width: 120px;
+    height: 35px;
+    border-radius: 4px;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+}
+
+.back { background: #74A57F; }
+.save { background: #077187; }
+.send { background: #074F57; }
