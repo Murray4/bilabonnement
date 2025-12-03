@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class DamageReportController {
+public class DamageController {
     @GetMapping("/damage")
     public String damage(Model model) {
         model.addAttribute("activePage", "damage");
