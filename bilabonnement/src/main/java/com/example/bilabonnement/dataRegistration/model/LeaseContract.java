@@ -9,8 +9,8 @@ import java.util.Date;
 public class LeaseContract{
 
     public enum SubscriptionType {
-        Limited,
-        Unlimited
+        LIMITED,
+        UNLIMITED
     }
 
     @Id
@@ -53,7 +53,10 @@ public class LeaseContract{
     private Integer vehicleId;              // vehicle_id
 
     // TOM KONSTRUKTØR (kræves af BeanPropertyRowMapper)
-    public LeaseContract() {}
+    public LeaseContract() {
+
+    }
+
 
     // VALGFRI konstruktør
     public LeaseContract(String leasingContractTerms,

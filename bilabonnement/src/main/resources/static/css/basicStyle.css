@@ -1,3 +1,4 @@
+/* --- BASIS STYLING --- */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -7,35 +8,33 @@ body {
 /* HEADER */
 .topbar {
     display: flex;
-    justify-content: center;  /* centrerer indholdet */
+    justify-content: center;
     align-items: center;
-    background: #6EA37F;      /* topbar baggrund */
+    background: #6EA37F;
     height: 55px;
-    gap: 0;
-
-    max-width: 70%;           /* lidt bredere end grid */
-    margin: 20px auto 0 auto; /* top margin til white space og centreret */
+    max-width: 70%;
+    margin: 20px auto 0 auto;
     border-radius: 10px;
     box-sizing: border-box;
 }
 
 .topbar a {
-    flex: 1;                  /* links fylder ligeligt */
-    text-align: center;        /* centrerer tekst */
+    flex: 1;
+    text-align: center;
     color: #ffffff;
     font-size: 14px;
     text-decoration: none;
     font-weight: 600;
-    padding: 0;               /* fjern fast padding, brug flex */
+    padding: 0;
     display: block;
-    height: 100%;             /* fylder hele højden af topbar */
-    line-height: 55px;        /* vertikal centering */
+    height: 100%;
+    line-height: 55px;
     background: none;
 }
 
 .topbar a.active {
-    background: #006F85;      /* aktiv side */
-    border-radius: 10px;      /* afrundet aktiv fane */
+    background: #006F85;
+    border-radius: 10px;
     color: #ffffff;
 }
 
@@ -64,7 +63,7 @@ body {
     margin: 40px 0;
 }
 
-/* GRID LAYOUT */
+/* --- GRID LAYOUT --- */
 .wrapper {
     width: 60%;
     margin: auto;
@@ -74,27 +73,52 @@ body {
     box-sizing: border-box;
 }
 
-.box {
+/* BOKSE MED FLEX TIL KNAPPER */
+.box, .stretched-box {
     background: #EBEDF1;
     border: 1px solid #cfcfcf;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.08);
     min-height: 170px;
     padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stretched-box {
+    grid-column: 1 / -1;
 }
 
 .box h3 {
-    margin-top: 0;
+    margin: 0 0 10px 0;
     font-size: 18px;
     font-weight: 600;
 }
 
-.stretched-box {
-    background: #EBEDF1;
-    border: 1px solid #cfcfcf;
+/* --- KNAPPER I BOKSE --- */
+.box-button {
+    align-self: flex-end;
+    padding: 8px 8px;
+    border: none;
     border-radius: 10px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-    min-height: 170px;
-    padding: 20px;
-    grid-column: 1 / -1; /* fylder hele rækken */
+    background-color: #6EA37F;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, transform 0.2s;
+    text-decoration: none;
+}
+
+.box-button:hover {
+    background-color: #5a845f;
+    transform: translateY(-2px);
+}
+
+.box-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

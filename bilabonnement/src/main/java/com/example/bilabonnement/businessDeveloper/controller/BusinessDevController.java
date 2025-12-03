@@ -13,8 +13,17 @@ public class BusinessDevController {
     @Autowired
     BusinessDevService devService;
 
-    @GetMapping("/businessdevelopers")
-    public String showDashboard(Model model){
+    //Test:
+    @GetMapping("/test")
+    public String testKPI(Model model) {
+        int rented = devService.getTotalRentedCars();
+        model.addAttribute("rented", rented);
+        return "businessDeveloperHTML/businessDeveloper";
+    }
+
+    //rigtigt med dashboard:
+    @GetMapping("/businessDeveloper")
+    public String showDashboard(Model model) {
 
         //hent data fra service:
         BusinessDevDashboard dashboard = devService.getDashboard();
@@ -22,9 +31,7 @@ public class BusinessDevController {
         //"gør dashboard-objektet tilgængeligt i Thymeleaf som dashboard":
         model.addAttribute("dashboard", dashboard);
 
-        return "home/businessdevelopers";
-
+        return "businessDeveloperHTML/businessDeveloper";
     }
-
-
 }
+

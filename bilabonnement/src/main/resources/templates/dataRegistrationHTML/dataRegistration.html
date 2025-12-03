@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dataregistrering</title>
     <!-- CSS Stylesheet-->
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/basicStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/dataRegistration.css}">
+
 </head>
 <body>
 
 <!-- Header som fragment -->
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/headerFragment :: header"></div>
 
 <!-- Søgefelt -->
 <div class="search-container">
@@ -21,12 +23,33 @@
 
 <!-- Boks GRID -->
 <div class="wrapper">
-    <div class="box"><h3>Database</h3></div>
-    <div class="box"><h3>Information</h3></div>
-    <div class="box stretched-box"><h3>Klargøring</h3></div>
-    <div class="box"><h3>Økonomi</h3></div>
-    <div class="box"><h3>Rapporter & Faktura</h3></div>
-</div>
+    <div class="box"><h3>Bookinger</h3>
+        <a class="btn" th:href="@{/dataregistration/bookings}">Se bookinger</a>
+    </div>
 
+    <div class="box"><h3>Lejekontrakter</h3>
+        <a class="btn" th:href="@{/dataregistration}">Se aktive lejekontakter</a>
+        <a class="btn" th:href="@{/dataregistration}">Se alle lejekontrakter</a>
+    </div>
+
+    <div class="box"><h3>Købsaftaler</h3>
+        <a class="btn" th:href="@{/dataregistration}">Se alle købsaftaler</a>
+    </div>
+
+    <div class="box"><h3>Kunder</h3>
+        <a class="btn" th:href="@{/dataregistration}">Se alle kunder</a>
+        <a class="btn" th:href="@{/dataregistration}">Se alle lejere</a>
+        <a class="btn" th:href="@{/dataregistration}">Se alle købere</a>
+
+    </div>
+
+    <div class="box"><h3>Biler</h3>
+        <a class="btn" th:href="@{/dataregistration}">Se alle biler</a>
+
+    </div>
+    <div class="box"><h3>Tilstandsrapporter</h3>
+        <a class="btn" th:href="@{/dataregistration}">Se alle tilstandsrapporter</a>
+    </div>
+</div>
 </body>
 </html>

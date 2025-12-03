@@ -9,6 +9,6 @@ public class EconomyController {
     @GetMapping("/economy")
     public String economy(Model model) {
         model.addAttribute("activePage", "economy");
-        return "economy";
+        return "economyHTML/economy";
     }
 }

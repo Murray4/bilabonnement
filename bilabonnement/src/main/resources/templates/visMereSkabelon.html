@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vis Mere</title>
+
+    <link rel="stylesheet" th:href="@{/css/basicStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/visMereCSS.css}">
+</head>
+
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/headerFragment :: header"></div>
+
+<!-- Container -->
+<div class="vismere-wrapper">
+    <div class="vismere-box">
+
+        <!-- Tilbage-knap -->
+        <button class="back-btn" type="button" onclick="window.history.back()">← Tilbage</button>
+
+        <h2>OVERSKRIFT PLACEHOLDER</h2>
+        <p>TILFØJ HVAD DER PASSER JER HER - PLACEHOLDER</p>
+
+        <h3>Undertitel - PLACEHOLDER</h3>
+        <p>Mere detaljeret information - PLACEHOLDER</p>
+
+    </div>
+</div>
+
+</body>
+</html>
