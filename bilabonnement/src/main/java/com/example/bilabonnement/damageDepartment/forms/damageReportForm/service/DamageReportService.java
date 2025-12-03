@@ -25,7 +25,9 @@ public class DamageReportService {
     @Autowired private LeaseContractRepo leaseContractRepo;
     @Autowired private CarRepo carRepo;
 
-    /** Hent seneste “med items”; fallback til seneste. Hydrér items. */
+
+// Hent seneste med items; fallback til seneste. Hydrér items.
+
     public DamageReport findByLeaseIdWithItems(Integer leaseId) {
         Integer id = damageReportRepository.findLatestWithItemsIdByLeaseId(leaseId);
         if (id == null) id = damageReportRepository.findLatestIdByLeaseId(leaseId);
@@ -36,13 +38,16 @@ public class DamageReportService {
         return dr;
     }
 
-    public DamageReport findById(Integer id) { return damageReportRepository.findById(id); }
 
-    /* ===== Beregninger ===== */
+// Beregninger antal kørte kilometer i lejeperioden
+
     public int calculateDrivenKm(Integer totalKm, Integer mileage) {
         if (totalKm == null || mileage == null) return 0;
         return Math.max(0, totalKm - mileage);
     }
+
+
+// Beregner prisen for ekstra kilometer kørt. Limeted har 40000 km inkluderet og unlimeted har 10000
 
     public double calculateExtraKmPrice(Integer totalKm, Integer mileage,
                                         LeaseContract.SubscriptionType subscription) {
@@ -54,6 +59,9 @@ public class DamageReportService {
         return (drivenKm - freeKmLimit) * pricePerKm;
     }
 
+
+// Beregner summen af prisen for alle skader
+
     private BigDecimal calculateDamageItemSum(List<DamageItem> items) {
         BigDecimal sum = BigDecimal.ZERO;
         if (items != null) {
@@ -63,6 +71,8 @@ public class DamageReportService {
         }
         return sum;
     }
+
+// Opdaterer hele rapportens beløb. (skader + km-gebyr) og skriv værdierne ind på objektet.
 
     public void recalc(DamageReport report) {
         BigDecimal damageSum = calculateDamageItemSum(report.getDamageItems());
@@ -80,7 +90,12 @@ public class DamageReportService {
         report.setTotalPrice(damageSum.add(BigDecimal.valueOf(extraKmPrice)));
     }
 
-    /* ===== Persistens ===== */
+// Vi bruger persistens for at kunne gemme det, du indtaster i Thymeleaf-formularen,
+// ned i databasen som en opdatering af den samme rapport.
+//Vi bruger @Transactional for at kunne gøre hele gemme-processen
+// i én sikker handling: slet gamle skader, gem rapporten og indsæt
+// de nye skader — enten lykkes alt, eller også fortrydes alt.
+
     @Transactional
     public DamageReport saveReport(DamageReport report) {
         // Synk paidStatus <-> hasPayed
@@ -102,28 +117,28 @@ public class DamageReportService {
             clean.add(it);
         }
 
-        // 2) Afbryd cascade før save af parent
+// 2) Afbryd cascade før save af parent
         report.setDamageItems(new ArrayList<>());
 
-        // 3) Recalc totals
+// 3) Recalc totals
         recalc(report);
 
-        // 4) Hvis opdatering: slet gamle items
+// 4) Hvis opdatering: slet gamle items
         if (report.getDamageReportId() != null) {
             damageItemRepository.deleteByReportId(report.getDamageReportId());
         }
 
-        // 5) Gem/MERGE selve rapporten (så vi har et managed report + id)
+// 5) Gem/MERGE selve rapporten (så vi har et managed report + id)
         damageReportRepository.save(report);
 
-        // 6) NULSTIL ID PÅ ITEMS efter sletning → de skal PERSIST’es som nye!
+// 6) NULSTIL ID PÅ ITEMS efter sletning → de skal PERSIST’es som nye!
         for (DamageItem it : clean) {
             it.setDamageItemId(null);          // <<< VIGTIG LINJE
             it.setDamageReport(report);
             damageItemRepository.save(it);     // vil kalde em.persist(...)
         }
 
-        // 7) tilbage til UI
+// 7) tilbage til UI
         report.setDamageItems(clean);
         return report;
     }

@@ -19,7 +19,9 @@ public class DamageReportRepository {
         return id == null ? null : entityManager.find(DamageReport.class, id);
     }
 
-    /** Seneste rapport-ID for et lease, som HAR mindst ét item. */
+
+//Seneste rapport-ID for et lease, som HAR mindst ét item.
+
     public Integer findLatestWithItemsIdByLeaseId(Integer leaseId) {
         if (leaseId == null) return null;
         return entityManager.createQuery(
@@ -31,7 +33,9 @@ public class DamageReportRepository {
         ).setParameter("leaseId", leaseId).getSingleResult();
     }
 
-    /** Seneste rapport-ID for et lease (kan være tom). */
+
+//Seneste rapport-ID for et lease (kan være tom).
+
     public Integer findLatestIdByLeaseId(Integer leaseId) {
         if (leaseId == null) return null;
         return entityManager.createQuery(
@@ -42,7 +46,9 @@ public class DamageReportRepository {
         ).setParameter("leaseId", leaseId).getSingleResult();
     }
 
-    /** Hent én rapport + dens items (fetch join). */
+
+//Hent én rapport + dens items (fetch join).
+
     public DamageReport findWithItemsById(Integer id) {
         if (id == null) return null;
         List<DamageReport> list = entityManager.createQuery(
@@ -54,13 +60,13 @@ public class DamageReportRepository {
         return list.isEmpty() ? null : list.get(0);
     }
 
-    /** Persist/merge selve rapporten. */
+//Vi opdaterer rapporten
     public DamageReport save(DamageReport report) {
         if (report.getDamageReportId() == null) {
             entityManager.persist(report);     // NY → får id
             return report;
         } else {
-            return entityManager.merge(report); // EKSISTERENDE → MERGE (OPDATER)
+            return entityManager.merge(report);
         }
     }
 

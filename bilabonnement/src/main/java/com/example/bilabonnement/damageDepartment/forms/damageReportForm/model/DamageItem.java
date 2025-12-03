@@ -18,12 +18,17 @@ public class DamageItem {
     @Column(name = "damage_item_price", precision = 12, scale = 2)
     private BigDecimal damageItemPrice;
 
+
     // Child → Parent (kræver at parent er managed)
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "damage_report_id", nullable = false)
     private DamageReport damageReport;
 
-    // Getters/setters
+
+
+// Getters/setters
+
     public Integer getDamageItemId() { return damageItemId; }
     public void setDamageItemId(Integer damageItemId) { this.damageItemId = damageItemId; }
     public String getDescription() { return description; }

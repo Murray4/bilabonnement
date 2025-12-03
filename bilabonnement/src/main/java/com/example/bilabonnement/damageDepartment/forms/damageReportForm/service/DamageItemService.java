@@ -16,19 +16,22 @@ public class DamageItemService {
     private DamageItemRepository damageItemRepository;
 
 
-    // Hent alle items til en report
+// Hent alle items til en report
+
     public List<DamageItem> getItemsByReport(Integer reportId) {
         return damageItemRepository.findByReportId(reportId);
     }
 
 
-    // Slet alle items for en report
+// Slet alle items for en report
+
     public void deleteItemsByReport(Integer reportId) {
         damageItemRepository.deleteByReportId(reportId);
     }
 
 
-    // Gem ét item
+// Gem ét item
+
     public DamageItem saveItem(DamageItem item, DamageReport parent) {
         item.setDamageReport(parent);
         damageItemRepository.save(item);
@@ -36,7 +39,8 @@ public class DamageItemService {
     }
 
 
-    // Gem liste af items
+// Gem liste af items
+
     public void saveItems(List<DamageItem> items, DamageReport parent) {
         for (DamageItem item : items) {
             item.setDamageReport(parent);

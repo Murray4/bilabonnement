@@ -15,6 +15,9 @@ public class DamageItemRepository {
     @PersistenceContext
     private EntityManager em;
 
+
+// Finder damage_Items ved at indtaste et report_ID
+
     public List<DamageItem> findByReportId(Integer reportId) {
         return em.createQuery(
                 "select di from DamageItem di " +
@@ -24,11 +27,15 @@ public class DamageItemRepository {
         ).setParameter("rid", reportId).getResultList();
     }
 
+// sletter damage_items ved at indtaste et report_id
+
     public void deleteByReportId(Integer reportId) {
         em.createQuery("delete from DamageItem di where di.damageReport.damageReportId = :rid")
                 .setParameter("rid", reportId)
                 .executeUpdate();
     }
+
+// gemmer damage_items ved at indtaste et report_id
 
     public DamageItem save(DamageItem item) {
         if (item.getDamageItemId() == null) {

@@ -40,7 +40,10 @@ public class DamageReport {
     @OneToMany(mappedBy = "damageReport", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DamageItem> damageItems = new ArrayList<>();
 
-    // Virtuel boolean til radioknapper
+
+// Vi laver en boolean til at se om rapporten er betalt.
+// Vi bruger normalt DateTime og Null for at bestemme dette.
+
     @Transient
     private Boolean paidStatus;
 

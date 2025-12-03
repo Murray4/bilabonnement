@@ -22,7 +22,7 @@ public class DamageReportController {
     @Autowired private LeaseContractRepo leaseContractRepo;
     @Autowired private CarRepo carRepo;
 
-    /** Uden leaseId → tom formular. Med leaseId → hent seneste (med items). */
+//Hvis ikke der er et lease_ID så e der en tom formular. Hvis den har henter den info
     @GetMapping("/new")
     public String newDamageReport(@RequestParam(required = false) Integer leaseId, Model model) {
         DamageReport report = null;
@@ -40,7 +40,7 @@ public class DamageReportController {
             }
             report.updatePaidStatusFromDate();
 
-            // ✅ Beregn totals til visning
+// Beregn totals til visning
             damageReportService.recalc(report);
 
             loadLeaseInfo(leaseId, model, report.getTotalKm());
@@ -58,7 +58,8 @@ public class DamageReportController {
     }
 
 
-    /** GEM → OPDATERER samme rapport (MERGE) når id følger med. */
+// Gemmer og opdaterer rapporten man arbejder på.
+
     @PostMapping("/save")
     public String saveDamageReport(@ModelAttribute DamageReport damageReport) {
         DamageReport saved = damageReportService.processAndSaveDamageReport(damageReport);
@@ -68,7 +69,8 @@ public class DamageReportController {
                 : "redirect:/damageReportForm/new";
     }
 
-    /* — helper til UI — */
+// Helper til at se info fra leasingkontrakt og bil
+
     private void loadLeaseInfo(Integer leaseId, Model model, Integer totalKmInput) {
         LeaseContract lease = leaseContractRepo.findById(leaseId.longValue());
         if (lease == null) return;
@@ -85,16 +87,7 @@ public class DamageReportController {
         model.addAttribute("extraKmPrice", extraKmPrice);
     }
 
-    /* Valgfrit: probe til fejlfinding (kan beholdes/kommenteres ud) */
-    @GetMapping("/probe")
-    @ResponseBody
-    public String probe(@RequestParam Integer leaseId) {
-        DamageReport r = damageReportService.findByLeaseIdWithItems(leaseId);
-        return "leaseId=" + leaseId +
-                ", reportId=" + (r==null?null:r.getDamageReportId()) +
-                ", items=" + (r==null || r.getDamageItems()==null ? 0 : r.getDamageItems().size()) +
-                ", totalKm=" + (r==null?null:r.getTotalKm());
-    }
+// Tilbageknap i damageDepartment
 
     @GetMapping
     public String overview(Model model) {
