@@ -13,7 +13,16 @@ public class BusinessDevController {
     @Autowired
     BusinessDevService devService;
 
-    @GetMapping("/businessDeveloper")
+    //Test:
+    @GetMapping("/test")
+    public String testKPI(Model model){
+        int rented = devService.getTotalRentedCars();
+        model.addAttribute("rented", rented);
+        return "businessDeveloperHTML/businessDeveloper";
+    }
+
+    //rigtigt med dashboard:
+    @GetMapping("/business-developer")
     public String showDashboard(Model model){
 
         //hent data fra service:
@@ -23,6 +32,7 @@ public class BusinessDevController {
         model.addAttribute("dashboard", dashboard);
 
         return "businessDeveloperHTML/businessDeveloper";
+    }
 
     }
 
