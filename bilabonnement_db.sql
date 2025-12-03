@@ -279,37 +279,38 @@ VALUES (TRUE, '2025-11-02', 'Kbh', 15000, 1.5, 'Standard aftale', 'DKK', '2025-1
 
 
 INSERT INTO status_histories (vehicle_id, status, timestamp) VALUES
--- AUDI A3 – klar til udlejning
-(1, 'PURCHASED',             '2025-01-10 08:00:00'),
-(1, 'PREPARATION_FOR_RENT',  '2025-01-15 09:00:00'),
-(1, 'READY_FOR_RENT',        '2025-01-20 10:00:00'),
 
--- BMW 320i – udlejet lige nu
-(2, 'PURCHASED',  '2025-01-14 08:00:00'),
-(2, 'READY_FOR_RENT', '2025-01-18 09:00:00'),
-(2, 'RENTED',          '2025-02-01 12:00:00'),
+-- AUDI A3 – Klar til udlejning
+(1, 'PURCHASED',             '2025-11-05 08:00:00'),
+(1, 'PREPARATION_FOR_RENT',  '2025-11-10 09:15:00'),
+(1, 'READY_FOR_RENT',        '2025-11-15 10:00:00'),
 
--- Mercedes C200 – for nylig returneret
-(3, 'PURCHASED',  '2025-02-01 08:00:00'),
-(3, 'RENTED',     '2025-02-10 12:00:00'),
-(3, 'RETURNED',   '2025-03-01 15:00:00'),
+-- BMW 320i – Udlejet nu
+(2, 'PURCHASED',             '2025-11-08 08:30:00'),
+(2, 'READY_FOR_RENT',        '2025-11-18 09:45:00'),
+(2, 'RENTED',                '2025-12-01 14:20:00'),
 
--- Toyota Yaris – under klargøring
-(4, 'PURCHASED',            '2024-11-01 08:00:00'),
-(4, 'PREPARATION_FOR_RENT', '2025-01-05 10:00:00'),
+-- Mercedes C200 – Returneret i december
+(3, 'PURCHASED',             '2025-11-12 08:10:00'),
+(3, 'RENTED',                '2025-11-25 12:30:00'),
+(3, 'RETURNED',              '2025-12-10 16:40:00'),
 
--- Volvo XC60 – klar til salg
-(5, 'PURCHASED',             '2025-02-10 09:00:00'),
-(5, 'PREPARATION_FOR_SALE',  '2025-02-15 10:30:00'),
-(5, 'READY_FOR_SALE',        '2025-02-20 11:00:00'),
+-- Toyota Yaris – Under klargøring
+(4, 'PURCHASED',             '2025-11-01 08:00:00'),
+(4, 'PREPARATION_FOR_RENT',  '2025-11-28 10:15:00'),
 
--- Skoda Octavia – nyindkøbt
-(6, 'PURCHASED', '2024-12-11 08:30:00'),
+-- Volvo XC60 – Klar til salg
+(5, 'PURCHASED',             '2025-11-20 09:00:00'),
+(5, 'PREPARATION_FOR_SALE',  '2025-11-28 10:45:00'),
+(5, 'READY_FOR_SALE',        '2025-12-05 11:30:00'),
 
--- Tesla Model 3 – allerede solgt
-(7, 'PURCHASED', '2025-01-05 08:00:00'),
-(7, 'READY_FOR_SALE', '2025-02-01 10:00:00'),
-(7, 'SOLD', '2025-02-10 13:00:00');
+-- Skoda Octavia – Nyindkøbt
+(6, 'PURCHASED',             '2025-11-27 08:45:00'),
+
+-- Tesla Model 3 – Solgt i december
+(7, 'PURCHASED',             '2025-11-03 08:00:00'),
+(7, 'READY_FOR_SALE',        '2025-11-20 09:30:00'),
+(7, 'SOLD',                  '2025-12-15 13:50:00');
 
 
 /* ---------------- QUICK CHECKS ---------------- */
