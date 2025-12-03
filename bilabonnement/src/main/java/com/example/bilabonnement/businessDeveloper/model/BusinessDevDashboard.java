@@ -9,14 +9,19 @@ public class BusinessDevDashboard {
 
     private int totalReturnsToday;
 
+    private int actualReturnsToday;
+
     private int carsSoldThisYear;
 
     //Generelle kpi'er:
     private int carsReadyForRent;
     private int carsInPreparationForRent;
+    private int carsRented;
     private int carsReturned;
     private int carsReadyForSale;
     private int carsSold;
+    private int purchasedCars;
+    private int carsInPreparationForSale;
 
 
     public int getTotalRentedCars() {
@@ -43,6 +48,14 @@ public class BusinessDevDashboard {
         this.totalReturnsToday = totalReturnsToday;
     }
 
+    public int getActualReturnsToday() {
+        return actualReturnsToday;
+    }
+
+    public void setActualReturnsToday(int actualReturnsToday) {
+        this.actualReturnsToday = actualReturnsToday;
+    }
+
     public int getCarsReadyForRent() {
         return carsReadyForRent;
     }
@@ -57,6 +70,14 @@ public class BusinessDevDashboard {
 
     public void setCarsInPreparationForRent(int carsInPreparationForRent) {
         this.carsInPreparationForRent = carsInPreparationForRent;
+    }
+
+    public int getCarsRented() {
+        return carsRented;
+    }
+
+    public void setCarsRented(int carsRented) {
+        this.carsRented = carsRented;
     }
 
     public int getCarsReturned() {
@@ -89,6 +110,22 @@ public class BusinessDevDashboard {
 
     public void setCarsSoldThisYear(int carsSoldThisYear) {
         this.carsSoldThisYear = carsSoldThisYear;
+    }
+
+    public int getPurchasedCars() {
+        return purchasedCars;
+    }
+
+    public void setPurchasedCars(int purchasedCars) {
+        this.purchasedCars = purchasedCars;
+    }
+
+    public int getCarsInPreparationForSale() {
+        return carsInPreparationForSale;
+    }
+
+    public void setCarsInPreparationForSale(int carsInPreparationForSale) {
+        this.carsInPreparationForSale = carsInPreparationForSale;
     }
 }
 

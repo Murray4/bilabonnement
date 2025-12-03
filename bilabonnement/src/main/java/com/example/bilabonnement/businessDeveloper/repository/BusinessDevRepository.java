@@ -69,6 +69,19 @@ public class BusinessDevRepository {
         return result != null ? result :0;
     }
 
+    //Antal faktiske returneret biler i dag:
+    //
+    public int getActualReturnsToday(){
+        String sql= """
+                SELECT COUNT(*) 
+                FROM status_histories sh 
+                WHERE sh.status = 'RETURNED'
+                AND DATE(sh.timestamp) = CURDATE()
+                """;
+        Integer result = jdbcTemplate.queryForObject(sql, Integer.class);
+        return result != null ? result : 0;
+    }
+
     //antal biler solgt i år:
     public int getCarsSoldThisYear(){
         String sql= "SELECT COUNT(*) FROM final_sales WHERE YEAR(sale_date)=YEAR(CURDATE())";
