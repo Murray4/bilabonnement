@@ -13,7 +13,7 @@ public class BusinessDevController {
     @Autowired
     BusinessDevService devService;
 
-    @GetMapping("/businessdevelopers")
+    @GetMapping("/businessDeveloper")
     public String showDashboard(Model model){
 
         //hent data fra service:
@@ -22,7 +22,7 @@ public class BusinessDevController {
         //"gør dashboard-objektet tilgængeligt i Thymeleaf som dashboard":
         model.addAttribute("dashboard", dashboard);
 
-        return "home/businessdevelopers";
+        return "businessDeveloperHTML/businessDeveloper";
 
     }
 

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class DamageController {
-    @GetMapping("/damage")
+    @GetMapping("/damageDepartment")
     public String damage(Model model) {
-        model.addAttribute("activePage", "damage");
-        return "damageDepartment";
+        model.addAttribute("activePage", "damageDepartment");
+        return "damageDepartmentHTML/damageDepartment";
     }
 }

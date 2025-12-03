@@ -6,9 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class DataregistrationController {
-    @GetMapping("/dataregistration")
+    @GetMapping("/dataRegistration")
     public String dataregistration(Model model) {
-        model.addAttribute("activePage", "dataregistration");
-        return "dataRegistration";
+        model.addAttribute("activePage", "dataRegistration");
+        return "dataRegistrationHTML/dataRegistration";
+    }
+
+    @GetMapping("/visMere")
+    public String visMere(Model model) {
+        model.addAttribute("activePage", "visMere");
+        return "visMere";
     }
 }
