@@ -21,33 +21,45 @@
 
 <!-- Boks GRID -->
 <div class="wrapper">
-    <div class="box"><h3>(Database /) MVP</h3>
+    <div class="box"><h3>Udlejningsstatus</h3>
     <p>Antal udlejede biler lige nu:
         <strong th:text="${dashboard.totalRentedCars}"></strong>
     </p>
     <p>Samlet købsværdi af udlejede biler:
     <strong th:text="${dashboard.totalValueOfRentedCars}"></strong></p>
     </div>
-    <div class="box"><h3>Information</h3>
+    <div class="box"><h3>Returneringer</h3>
         <p>Planlagte returneringer i dag:
             <strong th:text="${dashboard.totalReturnsToday}"></strong>
         </p>
-        <p>Antal biler solgt i år: <strong th:text="${dashboard.carsSoldThisYear}"></strong></p>
+        <p>Faktiske returneringer i dag:
+        <strong th:text="${dashboard.actualReturnsToday}"></strong>
+        </p>
     </div>
-    <div class="box stretched-box"><h3>(Klargøring /) Bil status - Generelle KPI'er</h3>
+    <div class="box stretched-box"><h3>Lagerstatus</h3>
     <ul>
-        <li>Klargøring til udlejning:
+        <li>Købte biler:
+        <strong th:text="${dashboard.purchasedCars}"></strong></li>
+        <li>Ikke klar til udlejning:
         <strong th:text="${dashboard.carsInPreparationForRent}"></strong></li>
         <li>Klar til udlejning:
         <strong th:text="${dashboard.carsReadyForRent}"></strong></li>
+        <li>Udlejet:
+        <strong th:text="${dashboard.carsRented}"></strong></li>
         <li>Returneret:
         <strong th:text="${dashboard.carsReturned}"></strong></li>
+        <li>Ikke klar til salg:
+        <strong th:text="${dashboard.carsInPreparationForSale}"></strong></li>
         <li>Klar til salg:
         <strong th:text="${dashboard.carsReadyForSale}"></strong></li>
         <li>Solgt: <strong th:text="${dashboard.carsSold}"></strong></li>
     </ul>
     </div>
-    <div class="box"><h3>Økonomi</h3></div>
+    <div class="box"><h3>Økonomi / Salg</h3>
+        <p>Antal biler solgt i år: <strong th:text="${dashboard.carsSoldThisYear}"></strong></p>
+
+    </div>
+
     <div class="box"><h3>Rapporter & Faktura</h3></div>
 </div>
 
