@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS cars
     chassis_number   VARCHAR(50),
     brand            VARCHAR(50),
     model            VARCHAR(50),
-    equipment_level  ENUM ('Base', 'Comfort', 'Sport', 'Premium', 'Advanced'),
+    equipment_level  ENUM ('BASE', 'COMFORT', 'SPORT', 'PREMIUM', 'ADVANCED'),
     steel_price      DECIMAL(10, 2),
     registration_tax DECIMAL(10, 2),
     co2_emission     INT,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS lease_contracts
     start_date             DATE,
     end_date               DATE,
     rental_price           DECIMAL(10, 2),
-    subscription           ENUM ('Limited', 'Unlimited'),
+    subscription           ENUM ('LIMITED', 'UNLIMITED'),
     approved_date          DATETIME,
     deposit_payed_date     DATETIME,
     full_amount_payed_date DATETIME,
@@ -126,10 +126,10 @@ CREATE TABLE IF NOT EXISTS pre_sale_agreements
     date_of_purchase         DATE,
 
     vehicle_id               INT,
-    pre_buyer_id             INT,
+    customer_id             INT,
 
     CONSTRAINT fk_pre_sale_car FOREIGN KEY (vehicle_id) REFERENCES cars (vehicle_id),
-    CONSTRAINT fk_pre_sale_customer FOREIGN KEY (pre_buyer_id) REFERENCES customers (customer_id)
+    CONSTRAINT fk_pre_sale_customer FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
 
 );
 
@@ -152,14 +152,14 @@ INSERT INTO cars (chassis_number, brand, model, equipment_level,
                   steel_price, registration_tax, co2_emission, mileage,
                   leasing_code, irk_code, date_of_purchase, purchase_price)
 
-VALUES ('CAR001', 'Audi', 'A3', 'Base', 155000, 72000, 115, 23000, 'LC-A3-25', 'IRK-A1', '2025-01-10', 225000),
-       ('CAR002', 'BMW', '320i', 'Comfort', 225000, 112000, 128, 17000, 'LC-320-25', 'IRK-B1', '2025-01-14', 305000),
-       ('CAR003', 'Mercedes', 'C200', 'Sport', 265000, 132000, 142, 13500, 'LC-C2-25', 'IRK-C1', '2025-02-01', 365000),
-       ('CAR004', 'Toyota', 'Yaris', 'Premium', 135000, 52000, 95, 52000, 'LC-YA-24', 'IRK-D1', '2024-11-01', 185000),
-       ('CAR005', 'Volvo', 'XC60', 'Advanced', 355000, 182000, 158, 11000, 'LC-XC-25', 'IRK-E1', '2025-02-10', 525000),
-       ('CAR006', 'Skoda', 'Octavia', 'Comfort', 195000, 82000, 118, 32000, 'LC-OCT-24', 'IRK-F1', '2024-12-11',
+VALUES ('CAR001', 'Audi', 'A3', 'BASE', 155000, 72000, 115, 23000, 'LC-A3-25', 'IRK-A1', '2025-01-10', 225000),
+       ('CAR002', 'BMW', '320i', 'COMFORT', 225000, 112000, 128, 17000, 'LC-320-25', 'IRK-B1', '2025-01-14', 305000),
+       ('CAR003', 'Mercedes', 'C200', 'SPORT', 265000, 132000, 142, 13500, 'LC-C2-25', 'IRK-C1', '2025-02-01', 365000),
+       ('CAR004', 'Toyota', 'Yaris', 'PREMIUM', 135000, 52000, 95, 52000, 'LC-YA-24', 'IRK-D1', '2024-11-01', 185000),
+       ('CAR005', 'Volvo', 'XC60', 'ADVANCED', 355000, 182000, 158, 11000, 'LC-XC-25', 'IRK-E1', '2025-02-10', 525000),
+       ('CAR006', 'Skoda', 'Octavia', 'COMFORT', 195000, 82000, 118, 32000, 'LC-OCT-24', 'IRK-F1', '2024-12-11',
         275000),
-       ('CAR007', 'Tesla', 'Model 3', 'Premium', 330000, 0, 0, 14000, 'LC-TM3-25', 'IRK-G1', '2025-01-05', 445000)
+       ('CAR007', 'Tesla', 'Model 3', 'PREMIUM', 330000, 0, 0, 14000, 'LC-TM3-25', 'IRK-G1', '2025-01-05', 445000)
 ;
 
 /* ---------------- CUSTOMER (8 kunder – ingen datoer) ---------------- */
@@ -193,27 +193,27 @@ INSERT INTO lease_contracts (leasing_contract_terms, lease_contract_date, start_
                              full_amount_payed_date, renter_id, vehicle_id)
 VALUES
     -- 1: lang kontrakt, starter dec 2025, slutter dec 2028
-    ('Standard kontrakt', '2025-11-01', '2025-12-01', '2028-12-01', 4500.00, 'Unlimited',
+    ('Standard kontrakt', '2025-11-01', '2025-12-01', '2028-12-01', 4500.00, 'UNLIMITED',
      '2025-11-05 10:00:00', '2025-11-08 12:00:00', NULL, 1, 1),
 
     -- 2: kort tids leasing, 1 år fra dec 2025
-    ('Korttidsleasing', '2025-11-10', '2025-12-10', '2026-12-10', 3500.00, 'Limited',
+    ('Korttidsleasing', '2025-11-10', '2025-12-10', '2026-12-10', 3500.00, 'LIMITED',
      '2025-11-12 09:00:00', '2025-11-12 11:00:00', '2025-11-12 11:00:00', 2, 2),
 
     -- 3: endnu ikke approved
-    ('Korttidsleasing', '2025-11-15', '2025-12-15', '2026-12-15', 3500.00, 'Limited',
+    ('Korttidsleasing', '2025-11-15', '2025-12-15', '2026-12-15', 3500.00, 'LIMITED',
      NULL, NULL, NULL, 3, 3),
 
     -- 4: unlimited, ikke approved endnu
-    ('Standard kontrakt', '2025-11-18', '2025-12-20', '2027-12-20', 3600.00, 'Unlimited',
+    ('Standard kontrakt', '2025-11-18', '2025-12-20', '2027-12-20', 3600.00, 'UNLIMITED',
      NULL, NULL, NULL, 4, 4),
 
     -- 5: lang kontrakt, approved i slut nov
-    ('Lang kontrakt', '2025-11-20', '2025-12-05', '2029-12-05', 4200.00, 'Unlimited',
+    ('Lang kontrakt', '2025-11-20', '2025-12-05', '2029-12-05', 4200.00, 'UNLIMITED',
      '2025-11-25 10:30:00', '2025-11-26 09:15:00', NULL, 5, 5),
 
     -- 6: standard, approved i starten af dec
-    ('Standard kontrakt', '2025-11-25', '2025-12-10', '2028-12-10', 3900.00, 'Limited',
+    ('Standard kontrakt', '2025-11-25', '2025-12-10', '2028-12-10', 3900.00, 'LIMITED',
      '2025-12-01 11:00:00', NULL, NULL, 1, 6);
 
 
@@ -271,7 +271,7 @@ VALUES ('Henrik', 'Madsen', '77777777', 'henrik@mail.com', 'Adresse X', 2600, 's
 
 INSERT INTO pre_sale_agreements (limited_period, pre_sale_agreement_date, pickup_location, km_limit,
                                  extra_km_price, pre_sale_agreement_terms, currency, date_of_purchase,
-                                 vehicle_id, pre_buyer_id)
+                                 vehicle_id, pre_sale_agreements.customer_id)
 VALUES (TRUE, '2025-11-02', 'Kbh', 15000, 1.5, 'Standard aftale', 'DKK', '2025-11-20', 1, 4),
        (FALSE, '2025-11-08', 'Aarhus', 30000, 2.0, 'Ingen km-begrænsning', 'EUR', '2025-11-25', 2, 5),
        (TRUE, '2025-11-15', 'Odense', 20000, 1.8, 'Erhvervsaftale', 'DKK', '2025-12-01', 3, 6),
