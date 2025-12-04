@@ -32,7 +32,7 @@ public class DataregistrationController {
     }
 
     //Vis liste over bookinger
-    @GetMapping("/dataregistration/bookings")
+    @GetMapping("/dataRegistration/bookings")
     public String showBookingsTable(Model model) {
         List<BookingTableView> bookings =
                 leaseContractService.fetchAllBookingsWithRenterNameAndCarModel();
