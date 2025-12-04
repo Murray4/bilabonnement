@@ -7,6 +7,7 @@ import com.example.bilabonnement.dataRegistration.repository.LeaseContractRepo;
 import com.example.bilabonnement.damageDepartment.forms.damageReportForm.model.DamageItem;
 import com.example.bilabonnement.damageDepartment.forms.damageReportForm.model.DamageReport;
 import com.example.bilabonnement.damageDepartment.forms.damageReportForm.service.DamageReportService;
+import com.example.bilabonnement.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,7 +62,50 @@ public class DamageReportController {
 // Gemmer og opdaterer rapporten man arbejder på.
 
     @PostMapping("/save")
-    public String saveDamageReport(@ModelAttribute DamageReport damageReport) {
+    public String saveDamageReport(@ModelAttribute DamageReport damageReport, Model model) {
+
+        // --- Simpel validering af input fra formularen (tal mv.) ---
+        // Vi bruger små hjælpemetoder fra util (ValidationUtil) for at tjekke:
+        // - totalKm: må ikke være negativ og må max have 6 cifre
+        // - hver damageItemPrice: må ikke være negativ og må max have 6 heltalscifre + 2 decimaler
+        boolean hasErrors = false;
+
+        // Valider kilometertal
+        if (!ValidationUtil.isNullOrNonNegativeIntegerWithMaxDigits(damageReport.getTotalKm(), 6)) {
+            model.addAttribute("kmError", "Kilometertal skal være 0 eller større og må maks have 6 cifre.");
+            hasErrors = true;
+        }
+
+        // Valider priser på skader
+        if (damageReport.getDamageItems() != null) {
+            for (int i = 0; i < damageReport.getDamageItems().size(); i++) {
+                DamageItem it = damageReport.getDamageItems().get(i);
+                // Tillad tom linje (fx placeholder) – vi tjekker kun hvis der ER en pris
+                if (it != null && it.getDamageItemPrice() != null) {
+                    if (!ValidationUtil.isNonNegativeWithMaxDigits(it.getDamageItemPrice(), 6, 2)) {
+                        model.addAttribute("priceError", "Pris må ikke være negativ og må maks have 6 cifre før komma og 2 decimaler.");
+                        hasErrors = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+// Hvis der er fejl: vi returnerer samme view med fejlbeskeder – og sørger for at lease-info og totals vises
+        if (hasErrors) {
+            Integer leaseId = damageReport.getLeasingContractId();
+            if (leaseId != null) {
+                loadLeaseInfo(leaseId, model, damageReport.getTotalKm());
+            }
+            // Beregn totals så felterne vises korrekt efter fejl
+            damageReportService.recalc(damageReport);
+            model.addAttribute("damageReport", damageReport);
+            return "damageDepartmentHTML/damageReportForm";
+        }
+
+
+// --- Slut validering ---
+
         DamageReport saved = damageReportService.processAndSaveDamageReport(damageReport);
         Integer leaseId = saved.getLeasingContractId();
         return (leaseId != null)
