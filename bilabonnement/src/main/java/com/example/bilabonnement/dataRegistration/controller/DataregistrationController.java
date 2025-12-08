@@ -61,7 +61,7 @@ public class DataregistrationController {
         return "dataRegistrationHTML/bookingDetail";
     }
 
-    //Godkender en booking
+    //Godkend booking
     @PostMapping("/dataRegistration/bookings/{id}/approve")
     public String approveBooking(@PathVariable int id, RedirectAttributes redirectAttributes) {
 

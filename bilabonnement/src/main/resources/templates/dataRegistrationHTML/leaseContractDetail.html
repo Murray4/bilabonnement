@@ -29,7 +29,9 @@
         </h2>
         <p>
             Godkendt:
-            <span th:text="${#dates.format(leaseContract.approvedDate, 'dd-MM-yyyy')}"></span>
+            <span th:text="${leaseContract.approvedDate != null
+                           ? #dates.format(leaseContract.approvedDate, 'dd-MM-yyyy')
+                           : 'Ikke godkendt'}"></span>
         </p>
 
         <!-- KONTRAKT-DETALJER -->
@@ -61,24 +63,21 @@
             </tr>
             <tr>
                 <th>Godkendt dato</th>
-                <td th:text="${leaseContract.approvedDate != null} ?
-                              #dates.format(leaseContract.approvedDate, 'dd-MM-yyyy HH:mm') :
-                              'Ikke godkendt'">
-                </td>
+                <td th:text="${leaseContract.approvedDate != null
+                             ? #dates.format(leaseContract.approvedDate, 'dd-MM-yyyy HH:mm')
+                             : 'Ikke godkendt'}"></td>
             </tr>
             <tr>
                 <th>Depositum betalt</th>
-                <td th:text="${leaseContract.depositPayedDate != null} ?
-                              #dates.format(leaseContract.depositPayedDate, 'dd-MM-yyyy HH:mm') :
-                              'Ikke betalt'">
-                </td>
+                <td th:text="${leaseContract.depositPayedDate != null
+                             ? #dates.format(leaseContract.depositPayedDate, 'dd-MM-yyyy HH:mm')
+                             : 'Ikke betalt'}"></td>
             </tr>
             <tr>
                 <th>Fuldt beløb betalt</th>
-                <td th:text="${leaseContract.fullAmountPayedDate != null} ?
-                              #dates.format(leaseContract.fullAmountPayedDate, 'dd-MM-yyyy HH:mm') :
-                              'Ikke betalt'">
-                </td>
+                <td th:text="${leaseContract.fullAmountPayedDate != null
+                             ? #dates.format(leaseContract.fullAmountPayedDate, 'dd-MM-yyyy HH:mm')
+                             : 'Ikke betalt'}"></td>
             </tr>
         </table>
 
@@ -193,20 +192,17 @@
             </tr>
             <tr>
                 <th>Seneste status</th>
-                <td th:text="${leaseContract.lastStatus != null} ?
-                              leaseContract.lastStatus :
-                              'Ingen status'">
-                </td>
+                <td th:text="${leaseContract.lastStatus != null
+                             ? leaseContract.lastStatus
+                             : 'Ingen status'}"></td>
             </tr>
             <tr>
                 <th>Statusdato</th>
-                <td th:text="${leaseContract.lastStatusTimestamp != null} ?
-                              #dates.format(leaseContract.lastStatusTimestamp, 'dd-MM-yyyy HH:mm') :
-                              'Ingen statusdato'">
-                </td>
+                <td th:text="${leaseContract.lastStatusTimestamp != null
+                             ? #dates.format(leaseContract.lastStatusTimestamp, 'dd-MM-yyyy HH:mm')
+                             : 'Ingen statusdato'}"></td>
             </tr>
         </table>
-
 
     </div>
 </div>
