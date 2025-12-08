@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title}">Find bil ud fra status</title>
+
+  <link rel="stylesheet" th:href="@{/css/basicStyle.css}">
+  <link rel="stylesheet" th:href="@{/css/dataRegistration.css}">
+
+</head>
+
+<body>
+
+<!-- Header fragment -->
+<div th:replace="fragments/headerFragment :: header"></div>
+
+<div class="tabel-wrapper">
+
+  <div class ="tabel-box">
+
+    <!-- Back button row -->
+    <div class="top-row">
+      <a class="back-btn" th:href="@{/dataRegistration}">← Tilbage</a>
+    </div>
+
+    <!-- Indsætter status titlen: -->
+    <h2 th:text="${title}">Find bil ud fra status</h2>
+
+
+    <!-- vælg status form: -->
+    <form th:action="@{/dataRegistration/carStatus}" method="post" class="filter-form">
+
+      <label for="status">Vælg status</label>
+
+      <select id="status" name="status">
+        <option value="" th:selected="${status == null}">
+          (Vælg status)
+        </option>
+
+        <option value="PURCHASED"
+                th:selected="${status == 'PURCHASED'}">
+          Købt (ikke klar)
+        </option>
+
+        <option value="PREPARATION_FOR_RENT"
+                th:selected="${status == 'PREPARATION_FOR_RENT'}">
+          Klargøring til udlejning
+        </option>
+
+
+        <option value="READY_FOR_RENT"
+                th:selected="${status == 'READY_FOR_RENT'}">
+          Klar til udlejning
+        </option>
+
+
+        <option value="RENTED"
+                th:selected="${status == 'RENTED'}">
+          Udlejet
+        </option>
+
+        <option value="RETURNED"
+                th:selected="${status == 'RETURNED'}">
+          Returneret
+        </option>
+
+        <option value="PREPARATION_FOR_SALE"
+                th:selected="${status == 'PREPARATION_FOR_SALE'}">
+          Klargøring til salg
+        </option>
+
+        <option value="READY_FOR_SALE"
+                th:selected="${status == 'READY_FOR_SALE'}">
+          Til salg
+        </option>
+
+        <option value="SOLD"
+                th:selected="${status == 'SOLD'}">
+          Solgt
+        </option>
+
+
+
+      </select>
+
+      <button type="submit" class="box-button">Søg</button>
+
+    </form>
+
+    <br/>
+
+    <!-- Resultatet af søgningen: -->
+
+    <table class="booking-table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Stelnummer</th>
+        <th>Mærke</th>
+        <th>Model</th>
+        <th>Udstyr</th>
+        <th>Kørte km</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <!-- tomliste til at starte med: -->
+      <tr th:if="${cars.size() == 0}">
+        <td colspan="7" style="text-align: center; opacity: 0.7;">
+          Ingen biler med den valgte status - Vælg en status.
+        </td>
+      </tr>
+
+        <tr th:each="car:${cars}">
+          <td th:text="${car.vehicleId}"></td>
+          <td th:text="${car.chassisNumber}"></td>
+          <td th:text="${car.brand}"></td>
+          <td th:text="${car.model}"></td>
+          <td th:text="${car.equipmentLevel}"></td>
+          <td th:text="${car.mileage}"></td>
+          <td th:text="${car.carStatus}"></td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+</div>
+
+</body>
+</html>
