@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title}">Bilinformation</title>
+
+  <link rel="stylesheet" th:href="@{/css/basicStyle.css}">
+  <link rel="stylesheet" th:href="@{/css/dataRegistration.css}">
+
+
+</head>
+<body>
+<div th:replace="fragments/headerFragment :: header"></div>
+
+<div class="table-wrapper">
+  <div class="tabel-box">
+    <div class="top-row">
+      <a class="back-btn" th:href="@{/dataRegistration/cars}">← Tilbage</a>
+    </div>
+
+    <h2 th:text="${title}">Bilinformation</h2>
+
+    <table class="booking-table">
+      <tbody>
+      <tr>
+        <th>ID</th>
+        <td th:text="${car.vehicleId}"></td></tr>
+      <tr><th>Stelnummer</th><td th:text="${car.chassisNumber}"></td></tr>
+      <tr><th>Mærke</th><td th:text="${car.brand}"></td></tr>
+      <tr><th>Model</th><td th:text="${car.model}"></td></tr>
+      <tr><th>Udstyr</th><td th:text="${car.equipmentLevel}"></td></tr>
+      <tr><th>Kørte km</th><td th:text="${car.mileage}"></td></tr>
+      <tr><th>CO₂</th><td th:text="${car.co2Emission}"></td></tr>
+      <tr><th>Stålpris</th><td th:text="${car.steelPrice}"></td></tr>
+      <tr><th>Registreringsafgift</th><td th:text="${car.registrationTax}"></td></tr>
+      <tr><th>Købspris</th><td th:text="${car.purchasePrice}"></td></tr>
+      <tr><th>Købsdato</th><td th:text="${car.dateOfPurchase}"></td></tr>
+      <tr><th>Leasingkode</th><td th:text="${car.leasingCode}"></td></tr>
+      <tr><th>IRK-kode</th><td th:text="${car.irkCode}"></td></tr>
+      <tr><th>Status</th><td th:text="${car.carStatus}"></td></tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

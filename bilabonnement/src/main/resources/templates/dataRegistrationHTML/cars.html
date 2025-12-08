@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content ="width=device-width, initial-scale=1.0" />
+    <title>Biler</title>
+
+    <link rel="stylesheet" th:href="@{/css/basicStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/dataRegistration.css}">
+</head>
+<body>
+<!-- Header: -->
+<div th:replace="fragments/headerFragment :: header"></div>
+
+<div class="tabel-wrapper">
+
+    <div class="tabel-box">
+
+        <div class="top-row">
+            <a class="back-btn" th:href="@{/dataRegistration}">← Tilbage</a>
+        </div>
+
+        <!-- h2 tager imod title fra Controlleren:-->
+        <h2 th:text="${title}"></h2>
+
+        <table class="booking-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Stelnummer</th>
+                <th>Mærke</th>
+                <th>Model</th>
+                <th>Udstyr</th>
+                <th>Kørte km</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="car : ${cars}">
+                <td th:text="${car.vehicleId}"></td>
+                <td th:text="${car.chassisNumber}"></td>
+                <td th:text="${car.brand}"></td>
+                <td th:text="${car.model}"></td>
+                <td th:text="${car.equipmentLevel}"></td>
+                <td th:text="${car.mileage}"></td>
+                <td>
+                    <a class="table-button"
+                       th:href="@{/dataRegistration/cars/{id}(id=${car.vehicleId})}">
+                        Se mere
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
