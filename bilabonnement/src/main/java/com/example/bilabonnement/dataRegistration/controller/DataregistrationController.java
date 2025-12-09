@@ -2,6 +2,8 @@ package com.example.bilabonnement.dataRegistration.controller;
 
 import com.example.bilabonnement.dataRegistration.model.*;
 
+import com.example.bilabonnement.dataRegistration.model.Car;
+import com.example.bilabonnement.dataRegistration.model.CarView;
 import com.example.bilabonnement.dataRegistration.service.CarService;
 import com.example.bilabonnement.dataRegistration.service.LeaseContractService;
 import org.springframework.stereotype.Controller;
@@ -118,6 +120,23 @@ public class DataregistrationController {
         model.addAttribute("title", "Detaljer for bil " + vehicleId);
         model.addAttribute("activePage", "dataRegistration");
 
+//        //Der findes biler uden lejekontrakter, derfor try/catch...
+//        //Tjek om der er en LeaseContract tilknyttet bil id'et:
+//        Integer leaseContractId= null;
+//
+//        try{
+//            LeaseContract leaseContract = leaseContractService.findContractByVehicleID(vehicleId);
+//            if (leaseContract != null){
+//                leaseContractId = leaseContract.getLeasingContractId();
+//            }
+//        } catch (Exception e){
+//
+//            //hvis der ikke er nogen kontrakt på bilen, skal der bare ikke stå noget.
+//        }
+//        //Tilføj/send leaseContract til view:
+//        model.addAttribute("leaseContractId", leaseContractId);
+
+
         return "dataRegistrationHTML/carDetail";
     }
 
@@ -159,6 +178,27 @@ public class DataregistrationController {
 
     }
 
+    //Se siden hvor man kan ændre status på en bil:
+    @GetMapping("/dataRegistration/cars/{id}/changeStatus")
+    public String showChangeStatusForm(@PathVariable("id") int vehicleId, Model model){
 
+        //Hent bilen og vis nuværende info:
+        CarView car = carService.findCarById(vehicleId);
+
+        model.addAttribute("car", car);
+        model.addAttribute("title", "Skift status for bil med id nr. " + vehicleId);
+
+        return "dataRegistrationHTML/carChangeStatus";
+    }
+
+    //Ændre status for en bil:
+    @PostMapping("/dataRegistration/cars/{id}/status")
+    public String changeCarStatus(@PathVariable("id") int vehicleId, @RequestParam String status){
+
+
+        carService.changeCarStatus(vehicleId, status);
+
+        return "redirect:/dataRegistration/cars/" + vehicleId;
+    }
 
 }

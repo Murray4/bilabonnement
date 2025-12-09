@@ -30,4 +30,9 @@ public class CarService {
         return carRepository.fetchCarById(vehicleId);
     }
 
+    //Ændre status på en bil manuelt i status_histories:
+    public boolean changeCarStatus(int vehicleId, String status){
+        return carRepository.insertStatusHistory(vehicleId, status);
+    }
+
 }

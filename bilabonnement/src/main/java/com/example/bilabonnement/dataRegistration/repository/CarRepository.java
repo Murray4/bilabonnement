@@ -96,6 +96,15 @@ public class CarRepository {
         return template.queryForObject(sql, rowMapper, vehicleId);
     }
 
+    //Ændre (tilføj) status for en bil i status_histories:
+    public boolean insertStatusHistory(int vehicleId, String status){
+        String sql = """
+                INSERT INTO status_histories (vehicle_id, status, timestamp)
+                VALUES(?, ?, Now())
+                """;
+        return template.update(sql, vehicleId, status)> 0;
+    }
+
 
 
 }

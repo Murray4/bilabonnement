@@ -21,6 +21,8 @@
 
     <h2 th:text="${title}">Bilinformation</h2>
 
+
+
     <table class="booking-table">
       <tbody>
       <tr>
@@ -38,10 +40,34 @@
       <tr><th>Købsdato</th><td th:text="${car.dateOfPurchase}"></td></tr>
       <tr><th>Leasingkode</th><td th:text="${car.leasingCode}"></td></tr>
       <tr><th>IRK-kode</th><td th:text="${car.irkCode}"></td></tr>
-      <tr><th>Status</th><td th:text="${car.carStatus}"></td></tr>
+      <tr>
+        <th>Status</th>
+        <td>
+          <span th:text="${car.carStatus}"></span>
+
+          <!-- knap med link til ændring af status -->
+          <a class="box-button"
+             style="margin-left: 15px;"
+             th:href="@{/dataRegistration/cars/{id}/changeStatus(id=${car.vehicleId})}">
+            Skift status
+          </a>
+
+
+        </td>
+      </tr>
 
       </tbody>
     </table>
+
+    <!--
+     Viser kun den næste knap, hvis der eksisterer en leaseContract
+    <div class="button-row">
+      <a class="box-button" th:if="${leaseContractId != null}" th:href="@{dataRegistration/bookings/{id}(id=${leaseContractId})}">
+        Se lejekontrakt
+      </a>
+    </div>
+    -->
+
   </div>
 </div>
 

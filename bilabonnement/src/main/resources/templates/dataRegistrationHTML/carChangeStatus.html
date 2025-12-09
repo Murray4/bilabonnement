@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Skift status</title>
+
+    <link rel="stylesheet" th:href="@{/css/basicStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/dataRegistration.css}">
+</head>
+<body>
+
+<div th:replace="fragments/headerFragment :: header"></div>
+
+<div class="tabel-wrapper">
+    <div class="tabel-box">
+
+        <div class="top-row">
+            <a class="back-btn" th:href="@{/dataRegistration/cars/{id}(id=${car.vehicleId})}">
+                ← Tilbage
+            </a>
+
+        </div>
+
+        <h2 th:text="${title}">Skift status</h2>
+
+        <p>
+            <strong>Nuværende status:</strong>
+            <span th:text="${car.carStatus}"></span>
+        </p>
+
+        <form th:action="@{/dataRegistration/cars/{id}/status(id=${car.vehicleId})}"
+              method="post" class="filer-form">
+
+            <label for="status">Vælg en ny status:</label>
+
+            <select id="status" name="status" class="status-select">
+                <option value="PURCHASED">Købt (ikke klar)</option>
+                <option value="PREPARATION_FOR_RENT">Klargøring til udlejning</option>
+                <option value="READY_FOR_RENT">Klar til udlejning</option>
+                <option value="RENTED">Udlejet</option>
+                <option value="RETURNED">Returneret</option>
+                <option value="PREPARATION_FOR_SALE">Klargøring til salg</option>
+                <option value="READY_FOR_SALE">Klar til salg</option>
+                <option value="SOLD">Solgt</option>
+
+            </select>
+
+            <button type="submit" class="box-button" style="margin-left: 10px;">
+                Gem status
+            </button>
+
+        </form>
+
+
+    </div>
+
+</div>
+</body>
+</html>
