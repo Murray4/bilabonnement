@@ -1,6 +1,6 @@
 package com.example.bilabonnement.dataRegistration.repository;
 
-import com.example.bilabonnement.dataRegistration.model.CarView;
+import com.example.bilabonnement.dataRegistration.model.view.CarView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

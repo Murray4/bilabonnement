@@ -1,14 +1,14 @@
 package com.example.bilabonnement.dataRegistration.service;
 
 import com.example.bilabonnement.dataRegistration.model.*;
-import com.example.bilabonnement.dataRegistration.model.view.LeaseContractTableView;
+import com.example.bilabonnement.dataRegistration.model.view.BookingTableView;
 import com.example.bilabonnement.dataRegistration.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class LeaseContractService {
+public class BookingService {
 
     private final LeaseContractRepo leaseContractRepo;
     private final RenterRepo renterRepo;
@@ -16,7 +16,7 @@ public class LeaseContractService {
     private final CarRepo carRepo;
     private final StatusHistoryRepo statusHistoryRepo;
 
-    public LeaseContractService(LeaseContractRepo leaseContractRepo,
+    public BookingService(LeaseContractRepo leaseContractRepo,
                           RenterRepo renterRepo,
                           CustomerRepo customerRepo,
                           CarRepo carRepo,
@@ -53,16 +53,17 @@ public class LeaseContractService {
                 .orElse(null); // ligesom ved PreSale – må godt være null
     }
 
-    public List<LeaseContractTableView> fetchAllLeaseContractsWithRenterNameAndCarModel() {
-        return leaseContractRepo.fetchAllLeaseContractsWithRenterNameAndCarModel();
+
+    //BOOKING TABEL
+    public List<BookingTableView> fetchAllBookingsWithRenterNameAndCarModel() {
+        return leaseContractRepo.fetchAllBookingsWithRenterNameAndCarModel();
+    }
+
+    //GODKEND BOOKING
+    public boolean approveLeaseContractByIdAndUpdateCarStatus(int leasingContractId) {
+        return leaseContractRepo.approveLeaseContractByIdAndUpdateCarStatus(leasingContractId);
     }
 
 
-    /*
-    public LeaseContractDetailView fetchLeaseContractDetailByIdPlusCustomerRenterAndCar(int leasingContractId) {
-        return leaseContractRepo.fetchLeaseContractDetailByIdPlusCustomerRenterAndCar(leasingContractId);
-    }
-
-     */
 
 }

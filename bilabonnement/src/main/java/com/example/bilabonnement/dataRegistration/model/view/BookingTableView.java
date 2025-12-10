@@ -1,13 +1,13 @@
-package com.example.bilabonnement.dataRegistration.model;
+package com.example.bilabonnement.dataRegistration.model.view;
 
 import java.util.Date;
 
-//Objekt der bruges til at vise godkendte lease_contracts i en tabel, hvor der også vises renters navn og bilens model
-public class LeaseContractTableView {
+//Objekt der bruges til at vise bookings i en tabel, hvor der også vises renters navn og bilens model
+public class BookingTableView {
 
 
     private int leasingContractId;   // leasing_contract_id
-    private Date approvedDate; //approved_date
+    private Date leaseContractDate;  // lease_contract_date
     private String customerName;     // CONCAT(first_name, ' ', last_name)
     private String carModel;         // CONCAT(brand, ' ', model)
     private Date startDate;          // start_date
@@ -16,11 +16,11 @@ public class LeaseContractTableView {
     private String subscription;     // subscription (Limited/Unlimited)
 
 
-    public LeaseContractTableView() {
+    public BookingTableView() {
     }
 
-
     // getters & setters
+
     public int getLeasingContractId() {
         return leasingContractId;
     }
@@ -43,6 +43,14 @@ public class LeaseContractTableView {
 
     public void setCarModel(String carModel) {
         this.carModel = carModel;
+    }
+
+    public Date getLeaseContractDate() {
+        return leaseContractDate;
+    }
+
+    public void setLeaseContractDate(Date leaseContractDate) {
+        this.leaseContractDate = leaseContractDate;
     }
 
     public Date getStartDate() {
@@ -75,13 +83,5 @@ public class LeaseContractTableView {
 
     public void setSubscription(String subscription) {
         this.subscription = subscription;
-    }
-
-    public Date getApprovedDate() {
-        return approvedDate;
-    }
-
-    public void setApprovedDate(Date approvedDate) {
-        this.approvedDate = approvedDate;
     }
 }

@@ -1,11 +1,13 @@
 package com.example.bilabonnement.dataRegistration.controller;
 
 import com.example.bilabonnement.dataRegistration.model.*;
-
-import com.example.bilabonnement.dataRegistration.model.Car;
-import com.example.bilabonnement.dataRegistration.model.CarView;
+import com.example.bilabonnement.dataRegistration.model.view.CarView;
+import com.example.bilabonnement.dataRegistration.model.view.*;
+import com.example.bilabonnement.dataRegistration.service.BookingService;
 import com.example.bilabonnement.dataRegistration.service.CarService;
 import com.example.bilabonnement.dataRegistration.service.LeaseContractService;
+
+import com.example.bilabonnement.dataRegistration.service.PreSaleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +23,20 @@ import java.util.List;
 public class DataregistrationController {
 
     private final LeaseContractService leaseContractService;
-
     private final CarService carService;
+    private final PreSaleService preSaleService;
+    private final BookingService bookingService;
 
-    public DataregistrationController(LeaseContractService leaseContractService, CarService carService) {
+    public DataregistrationController(LeaseContractService leaseContractService,
+                                      CarService carService,
+                                      PreSaleService preSaleService,
+                                      BookingService bookingService) {
         this.leaseContractService = leaseContractService;
         this.carService = carService;
+        this.preSaleService = preSaleService;
+        this.bookingService = bookingService;
     }
+
 
     // Forsiden til dataregistrering
     @GetMapping("/dataRegistration")
@@ -40,7 +49,7 @@ public class DataregistrationController {
     @GetMapping("/dataRegistration/bookings")
     public String showBookingsTable(Model model) {
         List<BookingTableView> bookings =
-                leaseContractService.fetchAllBookingsWithRenterNameAndCarModel();
+                bookingService.fetchAllBookingsWithRenterNameAndCarModel();
 
         model.addAttribute("bookings", bookings);
 
@@ -51,8 +60,17 @@ public class DataregistrationController {
     @GetMapping("/dataRegistration/bookings/{id}")
     public String showBookingDetail(@PathVariable("id") int leasingContractId, Model model) {
 
-        BookingDetailView booking = leaseContractService.fetchBookingDetailByIdPlusCustomerRenterAndCar(leasingContractId);
-        model.addAttribute("booking", booking);
+        LeaseContract leaseContract = bookingService.getLeaseContract(leasingContractId);
+        Renter renter = bookingService.getRenterForLease(leaseContract);
+        Customer customer = bookingService.getCustomerForRenter(renter);
+        Car car = bookingService.getCarForLease(leaseContract);
+        StatusHistory lastStatus = bookingService.getLatestStatusForLease(leaseContract);
+
+        model.addAttribute("leaseContract", leaseContract);
+        model.addAttribute("renter", renter);
+        model.addAttribute("customer", customer);
+        model.addAttribute("car", car);
+        model.addAttribute("lastStatus", lastStatus);
 
         return "dataRegistrationHTML/bookingDetail";
     }
@@ -61,7 +79,7 @@ public class DataregistrationController {
     @PostMapping("/dataRegistration/bookings/{id}/approve")
     public String approveBooking(@PathVariable int id, RedirectAttributes redirectAttributes) {
 
-        boolean success = leaseContractService.approveLeaseContractByIdAndUpdateCarStatus(id);
+        boolean success = bookingService.approveLeaseContractByIdAndUpdateCarStatus(id);
 
         if (success) {
             redirectAttributes.addFlashAttribute("message", "Booking godkendt!");
@@ -71,6 +89,8 @@ public class DataregistrationController {
 
         return "redirect:/dataRegistration/bookings";
     }
+
+
 
     //Vis liste over godkendte lejekontrakter med Navn og bil
     @GetMapping("/dataRegistration/leaseContracts")
@@ -86,12 +106,53 @@ public class DataregistrationController {
 
     //Vis specifik lejekontrakt
     @GetMapping("/dataRegistration/leaseContracts/{id}")
-    public String showLeaseContractDetail(@PathVariable int id, Model model) {
-        LeaseContractDetailView leaseContract = leaseContractService.fetchLeaseContractDetailByIdPlusCustomerRenterAndCar(id);
+    public String showLeaseContractDetail(@PathVariable("id") int leasingContractId, Model model) {
+
+        LeaseContract leaseContract = leaseContractService.getLeaseContract(leasingContractId);
+        Renter renter = leaseContractService.getRenterForLease(leaseContract);
+        Customer customer = leaseContractService.getCustomerForRenter(renter);
+        Car car = leaseContractService.getCarForLease(leaseContract);
+        StatusHistory lastStatus = leaseContractService.getLatestStatusForLease(leaseContract);
+
         model.addAttribute("leaseContract", leaseContract);
+        model.addAttribute("renter", renter);
+        model.addAttribute("customer", customer);
+        model.addAttribute("car", car);
+        model.addAttribute("lastStatus", lastStatus);
 
         return "dataRegistrationHTML/leaseContractDetail";
     }
+
+
+
+    //Vis liste over pre Sale agreements med Navn og bil
+    @GetMapping("/dataRegistration/preSales")
+    public String showPreSaleTable(Model model) {
+        List<PreSaleTableView> preSales =
+                preSaleService.fetchAllPreSaleAgreementsWithCustomerAndCar();
+
+        model.addAttribute("preSales", preSales);
+
+        return "dataRegistrationHTML/preSales";
+    }
+
+    // Vis specifik presale agreement - kun med rene entiteter ikke DTO
+    @GetMapping("/dataRegistration/preSales/{id}")
+    public String showPreSaleDetail(@PathVariable int id, Model model) {
+
+        PreSaleAgreement preSaleAgreement = preSaleService.getPreSaleAgreement(id);
+        Customer customer = preSaleService.getCustomerForPreSale(preSaleAgreement);
+        Car car = preSaleService.getCarForPreSale(preSaleAgreement);
+        StatusHistory lastStatus = preSaleService.getLatestStatusForPreSale(preSaleAgreement);
+
+        model.addAttribute("preSaleAgreement", preSaleAgreement);
+        model.addAttribute("customer", customer);
+        model.addAttribute("car", car);
+        model.addAttribute("lastStatus", lastStatus);
+
+        return "dataRegistrationHTML/preSaleDetail";
+    }
+
 
 
     //Vis liste over biler fra cars tabellen:

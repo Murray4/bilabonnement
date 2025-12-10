@@ -1,46 +1,51 @@
 package com.example.bilabonnement.dataRegistration.model;
 
-import jakarta.persistence.*;
+// StatusHistory.java
+import com.example.bilabonnement.dataRegistration.CarStatus;
+
 import java.time.LocalDateTime;
 
-/** Spejler rækken i status_histories (én statusændring for en bil). */
-@Entity
-@Table(name = "status_histories")
 public class StatusHistory {
 
-    public enum Status {
-        PURCHASED, PREPARATION_FOR_RENT, READY_FOR_RENT, RENTED,
-        RETURNED, PREPARATION_FOR_SALE, READY_FOR_SALE, SOLD
+    private int statusHistoryId;
+    private CarStatus status;
+    private LocalDateTime timestamp;
+    private int vehicleId;
+
+    public StatusHistory() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "status_history_id")
-    private Integer statusHistoryId;
+    // Getters and setters
 
-    /** Status gemmes som tekst i DB (ENUM … 'RENTED' osv.). */
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
+    public int getStatusHistoryId() {
+        return statusHistoryId;
+    }
 
-    /** Hvornår status blev sat. */
-    @Column(name = "timestamp", nullable = false)
-    private LocalDateTime timestamp;
+    public void setStatusHistoryId(int statusHistoryId) {
+        this.statusHistoryId = statusHistoryId;
+    }
 
-    /** Vi kan nøjes med vehicleId som int, det er enklest. */
-    @Column(name = "vehicle_id", nullable = false)
-    private Integer vehicleId;
+    public CarStatus getStatus() {
+        return status;
+    }
 
-    // --- Gettere/settere ---
-    public Integer getStatusHistoryId() { return statusHistoryId; }
-    public void setStatusHistoryId(Integer id) { this.statusHistoryId = id; }
+    public void setStatus(CarStatus status) {
+        this.status = status;
+    }
 
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 
-    public Integer getVehicleId() { return vehicleId; }
-    public void setVehicleId(Integer vehicleId) { this.vehicleId = vehicleId; }
+    public int getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(int vehicleId) {
+        this.vehicleId = vehicleId;
+    }
 }
