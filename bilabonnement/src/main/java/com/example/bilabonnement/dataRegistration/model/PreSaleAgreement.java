@@ -13,7 +13,7 @@ public class PreSaleAgreement {
     private LocalDate preSaleAgreementDate;
     private String pickupLocation;
     private int kmLimit;
-    private BigDecimal extraKmPrice;
+    private double extraKmPrice;
     private String preSaleAgreementTerms;
     private Currency currency;
     private LocalDate dateOfPurchase;
@@ -65,11 +65,11 @@ public class PreSaleAgreement {
         this.kmLimit = kmLimit;
     }
 
-    public BigDecimal getExtraKmPrice() {
+    public double getExtraKmPrice() {
         return extraKmPrice;
     }
 
-    public void setExtraKmPrice(BigDecimal extraKmPrice) {
+    public void setExtraKmPrice(double extraKmPrice) {
         this.extraKmPrice = extraKmPrice;
     }
 

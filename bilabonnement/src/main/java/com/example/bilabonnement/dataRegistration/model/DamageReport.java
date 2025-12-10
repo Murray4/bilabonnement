@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 public class DamageReport {
 
     private int damageReportId;
-    private BigDecimal totalPrice;
-    private BigDecimal totalDamagePrice;
+    private double totalPrice;
+    private double totalDamagePrice;
     private LocalDate reportDate;
     private boolean lateReturn;
     private int totalKm;
@@ -29,19 +29,19 @@ public class DamageReport {
         this.damageReportId = damageReportId;
     }
 
-    public BigDecimal getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public BigDecimal getTotalDamagePrice() {
+    public double getTotalDamagePrice() {
         return totalDamagePrice;
     }
 
-    public void setTotalDamagePrice(BigDecimal totalDamagePrice) {
+    public void setTotalDamagePrice(double totalDamagePrice) {
         this.totalDamagePrice = totalDamagePrice;
     }
 

@@ -7,7 +7,7 @@ public class DamageItem {
 
     private int damageItemId;
     private String description;
-    private BigDecimal damageItemPrice;
+    private double damageItemPrice;
     private int damageReportId;
 
     public DamageItem() {
@@ -31,11 +31,11 @@ public class DamageItem {
         this.description = description;
     }
 
-    public BigDecimal getDamageItemPrice() {
+    public double getDamageItemPrice() {
         return damageItemPrice;
     }
 
-    public void setDamageItemPrice(BigDecimal damageItemPrice) {
+    public void setDamageItemPrice(double damageItemPrice) {
         this.damageItemPrice = damageItemPrice;
     }
 

@@ -22,7 +22,7 @@ public class FinalSale {
     private BuyerType buyerType;
     private Currency currency;
     private String note;
-    private BigDecimal finalSalePrice;
+    private double finalSalePrice;
     private int vehicleId;
 
     public FinalSale() {
@@ -134,11 +134,11 @@ public class FinalSale {
         this.note = note;
     }
 
-    public BigDecimal getFinalSalePrice() {
+    public double getFinalSalePrice() {
         return finalSalePrice;
     }
 
-    public void setFinalSalePrice(BigDecimal finalSalePrice) {
+    public void setFinalSalePrice(double finalSalePrice) {
         this.finalSalePrice = finalSalePrice;
     }
 
