@@ -1,4 +1,4 @@
-package com.example.bilabonnement.dataRegistration.model;
+package com.example.bilabonnement.dataRegistration.model.view;
 
 public class CarView {
 

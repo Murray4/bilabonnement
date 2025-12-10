@@ -1,4 +1,4 @@
-package com.example.bilabonnement.dataRegistration.model;
+package com.example.bilabonnement.dataRegistration.model.view;
 
 import com.example.bilabonnement.dataRegistration.EquipmentLevel;
 import com.example.bilabonnement.dataRegistration.model.LeaseContract.SubscriptionType;

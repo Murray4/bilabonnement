@@ -1,9 +1,7 @@
 package com.example.bilabonnement.dataRegistration.controller;
 
-import com.example.bilabonnement.dataRegistration.model.*;
-
-import com.example.bilabonnement.dataRegistration.model.Car;
-import com.example.bilabonnement.dataRegistration.model.CarView;
+import com.example.bilabonnement.dataRegistration.model.view.CarView;
+import com.example.bilabonnement.dataRegistration.model.view.*;
 import com.example.bilabonnement.dataRegistration.service.CarService;
 import com.example.bilabonnement.dataRegistration.service.LeaseContractService;
 import org.springframework.stereotype.Controller;

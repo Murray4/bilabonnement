@@ -16,10 +16,10 @@ package com.example.bilabonnement.dataRegistration.repository;
  */
 
 import com.example.bilabonnement.dataRegistration.model.*;
+import com.example.bilabonnement.dataRegistration.model.view.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
