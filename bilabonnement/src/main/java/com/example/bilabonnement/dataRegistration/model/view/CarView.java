@@ -18,6 +18,11 @@ public class CarView {
 
     private String carStatus;
 
+    private Integer leaseContractId;
+
+    private String approvedDate;
+
+
     public Integer getVehicleId() {
         return vehicleId;
     }
@@ -128,5 +133,21 @@ public class CarView {
 
     public void setCarStatus(String carStatus) {
         this.carStatus = carStatus;
+    }
+
+    public Integer getLeaseContractId() {
+        return leaseContractId;
+    }
+
+    public void setLeaseContractId(Integer leaseContractId) {
+        this.leaseContractId = leaseContractId;
+    }
+
+    public String getApprovedDate() {
+        return approvedDate;
+    }
+
+    public void setApprovedDate(String approvedDate) {
+        this.approvedDate = approvedDate;
     }
 }

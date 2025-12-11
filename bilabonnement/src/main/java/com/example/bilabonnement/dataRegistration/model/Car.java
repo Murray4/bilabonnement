@@ -49,12 +49,12 @@ public class Car {
     private Double purchasePrice;
 
     @Transient
-    @Enumerated(EnumType.STRING)
-    @Column(name = "car_status")
+
+    //@Column(name = "car_status")
     private CarStatus carStatus;
 
     @Transient
-    @Column(name = "status_change_timestamp")
+    //@Column(name = "status_change_timestamp")
     private LocalDateTime statusChangeTimestamp;
 
 

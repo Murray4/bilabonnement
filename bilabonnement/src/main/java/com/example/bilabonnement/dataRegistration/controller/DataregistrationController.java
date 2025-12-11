@@ -1,6 +1,7 @@
 package com.example.bilabonnement.dataRegistration.controller;
 
 import com.example.bilabonnement.dataRegistration.model.*;
+import com.example.bilabonnement.dataRegistration.model.LeaseContract;
 import com.example.bilabonnement.dataRegistration.model.view.CarView;
 import com.example.bilabonnement.dataRegistration.model.view.*;
 import com.example.bilabonnement.dataRegistration.service.BookingService;
@@ -175,22 +176,11 @@ public class DataregistrationController {
         model.addAttribute("title", "Detaljer for bil " + vehicleId);
         model.addAttribute("activePage", "dataRegistration");
 
-//        //Der findes biler uden lejekontrakter, derfor try/catch...
-//        //Tjek om der er en LeaseContract tilknyttet bil id'et:
-//        Integer leaseContractId= null;
-//
-//        try{
-//            LeaseContract leaseContract = leaseContractService.findContractByVehicleID(vehicleId);
-//            if (leaseContract != null){
-//                leaseContractId = leaseContract.getLeasingContractId();
-//            }
-//        } catch (Exception e){
-//
-//            //hvis der ikke er nogen kontrakt på bilen, skal der bare ikke stå noget.
+        //Henter lejekontrakten på bilen, hvis den har en:
+//        LeaseContract leaseContract = leaseContractService.findContractByVehicleIDOrNull(vehicleId);
+//        if (leaseContract != null){
+//            model.addAttribute("leaseContractId", leaseContract.getLeasingContractId());
 //        }
-//        //Tilføj/send leaseContract til view:
-//        model.addAttribute("leaseContractId", leaseContractId);
-
 
         return "dataRegistrationHTML/carDetail";
     }

@@ -83,13 +83,20 @@ public class CarRepository {
                     c.irk_code AS irkCode,
                     c.date_of_purchase AS dateOfPurchase,
                     c.purchase_price AS purchasePrice,
-                    h.status AS carStatus
+                    h.status AS carStatus,
+                    lc.leasing_contract_id AS leaseContractId,
+                    lc.approved_date AS approvedDate
                 FROM cars c
                 LEFT JOIN status_histories h
                     ON h.vehicle_id = c.vehicle_id
-                WHERE c.vehicle_id = ?
-                ORDER BY h.timestamp DESC
-                LIMIT 1
+                AND h.timestamp= (
+                    SELECT MAX(h2.timestamp) 
+                    FROM status_histories h2 
+                    WHERE h2.vehicle_id = c.vehicle_id
+                    )
+                LEFT JOIN lease_contracts lc
+                    ON lc.vehicle_id = c.vehicle_id
+                WHERE c.vehicle_id =?
                 """;
 
         RowMapper<CarView> rowMapper = new BeanPropertyRowMapper<>(CarView.class);

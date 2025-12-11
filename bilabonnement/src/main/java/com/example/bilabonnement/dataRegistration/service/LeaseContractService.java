@@ -65,4 +65,10 @@ public class LeaseContractService {
 
      */
 
+//    /* Gælder carDetail, så der linkes til bilens lejekontrakt
+//    Hent LeaseContract, hvis den findes ellers returner null: */
+//    public LeaseContract findContractByVehicleIDOrNull(int vehicleId){
+//        return leaseContractRepo.findContractByVehicleIDOrNull(vehicleId);
+//    }
+
 }

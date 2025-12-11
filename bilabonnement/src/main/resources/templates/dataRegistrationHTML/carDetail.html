@@ -51,22 +51,25 @@
              th:href="@{/dataRegistration/cars/{id}/changeStatus(id=${car.vehicleId})}">
             Skift status
           </a>
+        </td>
+      </tr>
 
+      <!--Viser kun den næste knap, hvis der eksisterer en leaseContract -->
 
+      <tr th:if="${car.leaseContractId != null and car.approvedDate != null}">
+        <th>Lejekontrakt</th>
+        <td>
+          <a class="box-button"  th:href="@{/dataRegistration/leaseContracts/{id}(id=${car.leaseContractId})}">
+            Se lejekontrakt
+          </a>
         </td>
       </tr>
 
       </tbody>
     </table>
 
-    <!--
-     Viser kun den næste knap, hvis der eksisterer en leaseContract
-    <div class="button-row">
-      <a class="box-button" th:if="${leaseContractId != null}" th:href="@{dataRegistration/bookings/{id}(id=${leaseContractId})}">
-        Se lejekontrakt
-      </a>
-    </div>
-    -->
+
+
 
   </div>
 </div>
