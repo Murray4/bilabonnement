@@ -2,7 +2,7 @@ package com.example.bilabonnement.dataRegistration.service;
 
 
 import com.example.bilabonnement.dataRegistration.model.view.CarView;
-import com.example.bilabonnement.dataRegistration.repository.CarRepository;
+import com.example.bilabonnement.dataRegistration.repository.CarRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,29 +10,29 @@ import java.util.List;
 @Service
 public class CarService {
 
-    private final CarRepository carRepository;
+    private final CarRepo carRepo;
 
-    public CarService(CarRepository carRepository){
-        this.carRepository = carRepository;
+    public CarService(CarRepo carRepo){
+        this.carRepo = carRepo;
     }
 
 
     public List<CarView> listAllCars(){
-        return carRepository.fetchAllCars();
+        return carRepo.fetchAllCars();
     }
 
     public List<CarView> listAllCarsByStatus(String status){
-        return carRepository.fetchCarsByStatus(status);
+        return carRepo.fetchCarsByStatus(status);
     }
 
     //Hent detaljer om specifik bil ud fra id:
     public CarView findCarById(int vehicleId){
-        return carRepository.fetchCarById(vehicleId);
+        return carRepo.fetchCarById(vehicleId);
     }
 
     //Ændre status på en bil manuelt i status_histories:
     public boolean changeCarStatus(int vehicleId, String status){
-        return carRepository.insertStatusHistory(vehicleId, status);
+        return carRepo.insertStatusHistory(vehicleId, status);
     }
 
 }
