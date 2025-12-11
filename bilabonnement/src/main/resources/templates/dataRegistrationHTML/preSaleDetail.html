@@ -2,7 +2,7 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Forkøbsaftale detaljer</title>
+    <title>Købsaftale detaljer</title>
 
     <link rel="stylesheet" th:href="@{/css/basicStyle.css}">
     <link rel="stylesheet" th:href="@{/css/visMereCSS.css}">
@@ -26,11 +26,11 @@
     <div class="vismere-box">
 
         <!-- Tilbage -->
-        <a class="back-btn" th:href="@{/dataRegistration/preSales}">← Tilbage til forkøbsaftaler</a>
+        <a class="back-btn" th:href="@{/dataRegistration/preSales}">← Tilbage til Købsaftaler</a>
 
         <!-- Overskrift -->
         <h2>
-            Forkøbsaftale ID:
+            Købsaftale ID:
             <span th:text="${preSaleAgreement.preSaleId}"></span>
             -
             <span th:text="${customer.firstName + ' ' + customer.lastName}"></span>
@@ -42,7 +42,7 @@
         </p>
 
         <!-- PRE-SALE AFTALE -->
-        <h3>Forkøbsaftale</h3>
+        <h3>Købsaftale</h3>
         <table class="detail-table">
             <tr>
                 <th>ID</th>

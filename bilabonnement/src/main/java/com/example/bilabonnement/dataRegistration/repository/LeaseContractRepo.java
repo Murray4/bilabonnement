@@ -55,51 +55,6 @@ public class LeaseContractRepo {
         return entityManager.find(LeaseContract.class, id.intValue());
     }
 
-    /**
-     * Hent alle lease contracts (både approved og ikke-approved).
-     */
-    public List<LeaseContract> fetchAllLeaseContracts() {
-        String sql = "SELECT * FROM lease_contracts";
-        RowMapper<LeaseContract> rm = new BeanPropertyRowMapper<>(LeaseContract.class);
-        return template.query(sql, rm);
-    }
-
-    /**
-     * Hent alle bookinger (approved_date IS NULL).
-     */
-    public List<LeaseContract> fetchAllBookings() {
-        String sql = "SELECT * FROM lease_contracts WHERE approved_date IS NULL";
-        RowMapper<LeaseContract> rm = new BeanPropertyRowMapper<>(LeaseContract.class);
-        return template.query(sql, rm);
-    }
-
-    /**
-     * Slå kontrakt op på leasing_contract_id (kaster exception ved 0 rækker).
-     */
-    public LeaseContract findContractByLeasingContractID(int leasingContractId) {
-        String sql = "SELECT * FROM lease_contracts WHERE leasing_contract_id = ?";
-        RowMapper<LeaseContract> rm = new BeanPropertyRowMapper<>(LeaseContract.class);
-        return template.queryForObject(sql, rm, leasingContractId);
-    }
-
-    /**
-     * Slå kontrakt op på renter_id (kaster exception ved 0 rækker).
-     */
-    public LeaseContract findContractByRenterID(int renterId) {
-        String sql = "SELECT * FROM lease_contracts WHERE renter_id = ?";
-        RowMapper<LeaseContract> rm = new BeanPropertyRowMapper<>(LeaseContract.class);
-        return template.queryForObject(sql, rm, renterId);
-    }
-
-    /**
-     * Slå kontrakt op på vehicle_id (kaster exception ved 0 eller >1 rækker).
-     */
-    public LeaseContract findContractByVehicleID(int vehicleId) {
-        String sql = "SELECT * FROM lease_contracts WHERE vehicle_id = ?";
-        RowMapper<LeaseContract> rm = new BeanPropertyRowMapper<>(LeaseContract.class);
-        return template.queryForObject(sql, rm, vehicleId);
-    }
-
 
     // Godkend BOOKING ud fra leasing_contract_id = sæt approved_date fra NULL til NOW()
     // og sæt bilens status til RENTED
