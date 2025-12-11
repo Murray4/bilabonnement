@@ -1,5 +1,20 @@
 /* dataRegistration.css */
 
+.vismere-wrapper {
+    margin-top: 0;
+}
+
+.status-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* centrerer billedet */
+
+}
+
+.status-image {
+    width: 70%;     /* fylder 75% af containerens bredde */
+    height: auto;   /* bevarer korrekt proportion */
+}
 
 .top-row {
     width: 100%;

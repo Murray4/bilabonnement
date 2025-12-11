@@ -159,24 +159,29 @@ public class LeaseContractRepo {
     //VIS TABEL MED LEJEKONTRAKTER plus lidt om customer og bil
     public List<LeaseContractTableView> fetchAllLeaseContractsWithRenterNameAndCarModel() {
         String sql = """
-                SELECT
-                    lc.leasing_contract_id,
-                    lc.approved_date,
-                    CONCAT(c.first_name, ' ', c.last_name) AS customerName,
-                    CONCAT(car.brand, ' ', car.model) AS carModel,
-                    lc.start_date,
-                    lc.end_date,
-                    lc.rental_price,
-                    lc.subscription
-                FROM lease_contracts lc
-                JOIN renters r ON lc.renter_id = r.renter_id
-                JOIN customers c ON r.customer_id = c.customer_id
-                JOIN cars car ON lc.vehicle_id = car.vehicle_id
-                WHERE lc.approved_date IS NOT NULL;
-                """;
-        RowMapper<LeaseContractTableView> rowMapper = new BeanPropertyRowMapper<>(LeaseContractTableView.class);
+            SELECT
+                lc.leasing_contract_id,
+                lc.approved_date,
+                CONCAT(c.first_name, ' ', c.last_name) AS customerName,
+                CONCAT(car.brand, ' ', car.model) AS carModel,
+                lc.start_date,
+                lc.end_date,
+                lc.rental_price,
+                lc.subscription
+            FROM lease_contracts lc
+            JOIN renters r ON lc.renter_id = r.renter_id
+            JOIN customers c ON r.customer_id = c.customer_id
+            JOIN cars car ON lc.vehicle_id = car.vehicle_id
+            WHERE lc.approved_date IS NOT NULL
+            ORDER BY lc.end_date DESC;   -- Sorterer efter slutdato
+            """;
+
+        RowMapper<LeaseContractTableView> rowMapper =
+                new BeanPropertyRowMapper<>(LeaseContractTableView.class);
+
         return template.query(sql, rowMapper);
     }
+
 
 
 // ---------- ROBUSTE HJÆLPERE TIL UI-FLOWET ----------
