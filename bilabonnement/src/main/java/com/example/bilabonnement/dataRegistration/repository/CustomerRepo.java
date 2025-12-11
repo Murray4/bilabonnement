@@ -1,11 +1,13 @@
 package com.example.bilabonnement.dataRegistration.repository;
 
 import com.example.bilabonnement.dataRegistration.model.Customer;
+import com.example.bilabonnement.dataRegistration.model.view.CarView;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -23,5 +25,12 @@ public class CustomerRepo {
         RowMapper<Customer> rm = new BeanPropertyRowMapper<>(Customer.class);
         var result = template.query(sql, rm, customerId);
         return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
+    }
+
+    public List<Customer> findAllCustomers() {
+        String sql = "SELECT * FROM customers";
+
+        RowMapper<Customer> rm = new BeanPropertyRowMapper<>(Customer.class);
+        return template.query(sql, rm);
     }
 }
