@@ -1,4 +1,10 @@
 <div th:fragment="header">
+
+    <span class="logo">
+    <img th:src="@{/images/bilabonnementLogo.svg}"
+         class="logo-image">
+    </span>
+
     <div class="topbar">
         <a th:href="@{/dataRegistration}"
            th:classappend="${activePage == 'dataRegistration'} ? 'active' : ''">Dataregistrering</a>
