@@ -38,15 +38,14 @@ public class LeaseContractRepo {
     private EntityManager entityManager;
 
     //FindByID der tager imod en INT!
-    public LeaseContract findById(int leasingContractId) {
+    public Optional<LeaseContract> findById(int leasingContractId) {
         String sql = "SELECT * FROM lease_contracts WHERE leasing_contract_id = ?";
 
         RowMapper<LeaseContract> rm =
                 new BeanPropertyRowMapper<>(LeaseContract.class);
 
         var result = template.query(sql, rm, leasingContractId);
-
-        return result.isEmpty() ? null : result.get(0);
+        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }
 
     /**
